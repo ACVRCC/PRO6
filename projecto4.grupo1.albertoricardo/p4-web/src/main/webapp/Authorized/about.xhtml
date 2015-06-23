@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="mainStyle.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:panelGroup layout="block" styleClass="row">
+						<h:panelGroup layout="block" styleClass="col-md-12">
+							<h:panelGroup layout="block" styleClass="tile redbrick">
+								<h:form>
+									<h1>Sobre a Aplicação</h1>
+									<p class="lead">
+										A aplicação foi desenvolvida por Alberto
+										<code>Centeno</code>
+										e Ricardo
+										<code>Quirino</code>
+										no âmbito da disciplina de Programação Avançada em Java do
+										Programa
+										<var>Acertar o Rumo</var>
+										.
+									</p>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

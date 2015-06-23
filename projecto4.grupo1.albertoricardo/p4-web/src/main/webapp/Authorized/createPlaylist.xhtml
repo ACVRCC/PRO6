@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup layout="block" styleClass="wrapper">
+					<h:form styleClass="form-signin">
+						<p:growl id="growl" showDetail="true" autoUpdate="true" />
+						<h:panelGroup id="createPL">
+							<h3 class="form-signin-heading">Cria a tua playlist</h3>
+							<hr class="colorgraph" />
+							<br />
+					Nome: <span class="reqfield">*</span>
+							<h:inputText id="nomePL" styleClass="form-control"
+								value="#{playlist.name}" required="true" />
+								<br/>	
+							<h:commandButton action="#{playlist.insertPlaylist()}"
+								value="Criar" styleClass="btn btn-lg btn-primary btn-block">
+								<f:ajax render="@form" execute="nomePL"/>
+							</h:commandButton>
+						</h:panelGroup>
+
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+
+
+</h:body>
+</html>

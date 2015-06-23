@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:panelGroup layout="block" styleClass="jumbotron fonterss">
+						<h1 style="margin-bottom: 60px;">Música: Notícias</h1>
+						<p:feedReader var="feed" value="http://news.myway.pt/feed"
+							size="5">
+							<p:tabView var="content" value="#{feed.contents}">
+								<p:tab title="#{feed.title}">
+									<h:panelGrid columns="1" cellpadding="10">
+										<h:outputText styleClass="texto" value="#{content.value}"
+											escape="false" />
+									</h:panelGrid>
+								</p:tab>
+							</p:tabView>
+						</p:feedReader>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

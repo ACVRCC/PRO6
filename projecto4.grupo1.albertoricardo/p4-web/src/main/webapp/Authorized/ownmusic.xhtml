@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:form id="form">
+						<p:growl id="msgs" showDetail="true" />
+						<p:dataTable id="ownMusicList" value="#{listMusic.getOwnMusic()}"
+							var="music" type="unordered" itemType="none" paginator="true"
+							rows="10" styleClass="paginated text-center" editable="true"
+							emptyMessage="Nenhuma música encontrada." scrollable="true"
+							draggableColumns="true" paginatorPosition="bottom">
+							<p:ajax event="rowEdit" listener="#{listMusic.onRowEdit}"
+								update=":form:msgs" />
+							<p:ajax event="rowEditCancel" listener="#{listMusic.onRowCancel}"
+								update=":form:msgs" />
+							<p:column headerText="Título" sortBy="#{music.title}"
+								style="width:100px">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.title}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{music.title}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Artista" sortBy="#{music.artist}"
+								style="width:100px">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.artist}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{music.artist}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Álbum" sortBy="#{music.album}"
+								style="width:100px">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.album}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{music.album}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Data de Lançamento"
+								sortBy="#{music.dateRecord}" style="width:100px">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{music.dateRecord}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</f:facet>
+									<f:facet name="input">
+										<p:calendar id="date" value="#{music.dateRecord}"
+											readonlyInput="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							<p:column headerText="Editar" style="width:50px">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Propriedade" style="width:100px">
+								<p:commandButton value="Remover" icon="fa fa-times"
+									action="#{listMusic.removeProperty(music)}"
+									onclick="return confirm('Tem a certeza?')" ajax="true">
+									<f:ajax render="@form :form:ownMusicList" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+	<display-name>p4-web</display-name>
+	<module-name>p4-web</module-name>
+	<welcome-file-list>
+		<welcome-file>login.xhtml</welcome-file>
+	</welcome-file-list>
+	<filter>
+		<filter-name>LoginRedirect</filter-name>
+		<filter-class>projecto4.grupo1.albertoricardo.Filter.LoginRedirect</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginRedirect</filter-name>
+		<url-pattern>/login.xhtml</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>Authentication</filter-name>
+		<filter-class>projecto4.grupo1.albertoricardo.Filter.Authentication</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Authentication</filter-name>
+		<url-pattern>/Authorized/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>facesServlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>facesServlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>delta</param-value>
+	</context-param>
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+</web-app>

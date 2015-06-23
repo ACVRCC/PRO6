@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:panelGroup layout="block" styleClass="row">
+						<h:panelGroup layout="block" styleClass="col-md-12">
+							<h:panelGroup layout="block" styleClass="tile orange">
+								<h:form>
+									<h1>
+										<h:commandLink action="listmusic.xhtml?faces-redirect=true"
+											value="Músicas disponíveis" />
+									</h1>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="row">
+						<h:panelGroup layout="block" styleClass="col-md-6">
+							<h:panelGroup layout="block" styleClass="ratio" />
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="col-md-6">
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-12">
+									<h:panelGroup layout="block" styleClass="tile green">
+										<h:form>
+											<h1>
+												<h:commandLink action="news.xhtml?faces-redirect=true"
+													value="Notícias" />
+											</h1>
+										</h:form>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="row">
+								<h:panelGroup layout="block" styleClass="col-md-12">
+									<h:panelGroup layout="block" styleClass="tile red">
+										<h:form>
+											<h1>
+												<h:commandLink action="ownmusic.xhtml?faces-redirect=true"
+													value="Minha Música" />
+											</h1>
+										</h:form>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="row">
+						<h:panelGroup layout="block" styleClass="col-sm-3">
+							<h:panelGroup layout="block" styleClass="tile yellow">
+								<h:form>
+									<h1>
+										<h:commandLink action="profile.xhtml?faces-redirect=true"
+											value="Perfil" />
+									</h1>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="col-md-3">
+							<h:panelGroup layout="block" styleClass="tile blue">
+								<h:form>
+									<h1>
+										<a href="http://www.twitter.com">twitter</a>
+									</h1>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="col-md-3">
+							<h:panelGroup layout="block" styleClass="tile purple">
+								<h:form>
+									<h1>
+										<a href="http://www.facebook.com">facebook</a>
+									</h1>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="col-md-3">
+							<h:panelGroup layout="block" styleClass="tile lightgreen">
+								<h:form>
+									<h1>
+										<h:commandLink action="about.xhtml?faces-redirect=true"
+											value="Sobre Nós" />
+									</h1>
+								</h:form>
+							</h:panelGroup>
+						</h:panelGroup>
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

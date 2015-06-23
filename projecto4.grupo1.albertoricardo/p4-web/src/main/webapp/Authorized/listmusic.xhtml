@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:form id="form" prependId="false">
+						<p:growl id="msgs" showDetail="true" autoUpdate="true" />
+						<p:dataTable id="listallmusics" value="#{listMusic.musics}"
+							var="music" paginator="true" rows="10"
+							styleClass="paginated text-center" widgetVar="listarmusicas"
+							emptyMessage="Nenhuma música encontrada"
+							filteredValue="#{listMusic.filteredMusics}" scrollable="true"
+							scrollWidth="100%" paginatorPosition="bottom"
+							resizableColumns="true" paginatorAlwaysVisible="false">
+							<f:facet name="header">
+								<p:outputPanel styleClass="text-left">
+									<p:inputText id="globalFilter"
+										onkeyup="PF('listarmusicas').filter()" style="width:150px"
+										placeholder="Pesquisar ..." styleClass="text-left" />
+								</p:outputPanel>
+							</f:facet>
+							<p:column headerText="Título" sortBy="#{music.title}"
+								filterBy="#{music.title}"
+								filterStyle="display: none;
+							visibility: hidden;">
+								<h:outputText value="#{music.title}" styleClass="text-center" />
+							</p:column>
+							<p:column headerText="Artista" sortBy="#{music.artist}"
+								filterBy="#{music.artist}"
+								filterStyle="display: none;
+						 	visibility: hidden;">
+								<h:outputText value="#{music.artist}" />
+							</p:column>
+							<p:column headerText="Álbum" sortBy="#{music.album}"
+								filterBy="#{music.album}"
+								filterStyle="display: none;
+						 	visibility: hidden;">
+								<h:outputText value="#{music.album}" />
+							</p:column>
+							<p:column headerText="Data de Lançamento"
+								sortBy="#{music.dateRecord}" filterBy="#{music.dateRecord}"
+								filterStyle="display: none;
+						 	visibility: hidden;">
+								<h:outputText value="#{music.dateRecord}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Ouvir">
+								<p:commandButton icon="ui-icon-play"
+									action="#{playMusic.play(music.pathFile)}" />
+								<p:commandButton icon="ui-icon-stop"
+									action="#{playMusic.stop()}" />
+							</p:column>
+
+							<p:column headerText="Adicionar a Playlist">
+								<p:commandButton oncomplete="PF('addDialog').show();"
+									icon="ui-icon-circle-plus" update="@form">
+									<f:setPropertyActionListener value="#{music}"
+										target="#{listPlaylist.selectedMusic}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+					<h:form>
+						<p:dialog id="dialog" header="Playlist" widgetVar="addDialog"
+							width="30%">
+							<h:panelGrid columns="1" cellpadding="20"
+								styleClass="text-center" style="width:100%">
+								<p:selectOneMenu id="plist"
+									value="#{listPlaylist.selectedPlaylist}"
+									converter="entityConverter" var="pl" style="width:80%">
+															Converter é usado para o item seleccionado é um objecto. Se fosse uma string não era preciso
+															<f:selectItem itemLabel="Seleccione:" itemValue="" />
+									<f:selectItems value="#{listPlaylist.playlists}" var="plst"
+										itemLabel="#{plst.name}" itemValue="#{plst}" />
+									<p:column>
+																		#{pl.name}
+																	</p:column>
+								</p:selectOneMenu>
+								<p:commandButton
+									actionListener="#{listPlaylist.addToSelectedPlaylist()}"
+									value="Enviar" icon="ui-icon-check" update="@form" />
+							</h:panelGrid>
+						</p:dialog>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

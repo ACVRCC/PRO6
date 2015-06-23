@@ -1,0 +1,224 @@
+body {
+	background-image: url("#{resource['imgs:bg2.jpg']}") !important;
+}
+
+.btn-file {
+	position: relative;
+	overflow: hidden;
+}
+
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+	background: red;
+	cursor: inherit;
+	display: block;
+}
+
+input[readonly] {
+	background-color: white !important;
+	cursor: text !important;
+}
+
+.btn-dlt {
+	background-color: firebrick;
+	color: #282828;
+	border-color: #5e0005;
+}
+
+@media ( min-width : 768px) {
+	.navbar-navz {
+		width: 100%;
+		text-align: center;
+	}
+	.navbar-navz>li {
+		float: none;
+		display: inline-block;
+	}
+	.navbar-navz>li.navbar-right {
+		float: right !important;
+	}
+}
+
+.center-email {
+	text-align: right;
+}
+
+.formnavbar {
+	margin-top: 10px;
+}
+
+.reqfield {
+	color: firebrick;
+	font-weight: 800;
+}
+
+.showfilepath {
+	height: auto;
+	padding: 10px 16px;
+	font-size: 12px;
+	line-height: 1.3333333;
+	border-radius: 6px;
+}
+
+.datebtn {
+	width: 100%;
+	text-align: center;
+}
+
+.fileUpload {
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+}
+
+.fileUpload input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+}
+
+#listallmusics .ui-column-filter {
+	display: none;
+	visibility: hidden;
+}
+
+.fonterss {
+	text-align: center;
+}
+
+.fonterss img {
+	width: 40%;
+}
+
+.fonterss p {
+	font-size: 14px !important;
+	text-align: justify !important;
+}
+
+.fonterss iframe {
+	width: 40%;
+	text-align: center;
+}
+
+.tile {
+	width: 100%;
+	display: inline-block;
+	box-sizing: border-box;
+	background: #fff;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+.tile.title {
+	margin-top: 0px;
+}
+
+.purple, .blue, .red, .orange, .green, .yellow, .lightgreen, .redbrick {
+	color: #fff;
+}
+
+.purple {
+	color: #fff;
+	background: #5133AB;
+}
+.purple:hover {
+	background: #c85249;
+}
+
+
+.red {
+	color: #fff;
+	background: #AC193D;
+
+}
+.red:hover {
+	background: #65001d;
+}
+.green {
+	color: #fff;
+	background: #00A600;
+}
+.green:hover {
+	background: #0d6c00;
+}
+.blue {
+	color: #fff;
+	background: #2672EC;
+}
+.blue:hover {
+	background: #1746aa;
+}
+.orange {
+	color:#fff;
+	background: #DC572E;
+}
+
+.orange:hover {
+	background: #a8321b;
+}
+.yellow {
+	color:#fff;
+	background: #e2d000;
+}
+
+.yellow:hover {
+	background: #c5b507;
+}
+.lightgreen {
+	color:#fff;
+	background: #0eff8a;
+}
+
+.lightgreen:hover {
+	background: #1abe57;
+}
+.redbrick {
+	color: #fff;
+	background: firebrick;
+}
+
+.redbrick:hover {
+	background: #790c13;
+}
+.white {
+	background: #fff;
+}
+.tile a {
+	color: inherit;
+}
+
+.tile a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+.ratio{
+    position:relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 44.7% ; /* % of width, defines aspect ratio*/
+    background-image: url("#{resource['imgs:javasound.jpg']}");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;  
+}
+
+.brandbotao {
+	display:inline-block !important;
+	position: absolute !important;
+	padding-top: 0.9% !important;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputScript library="js" name="inputFilePath.js" />
+	<h:outputStylesheet library="css" name="mainStyle.css" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+
+<h:body>
+	<div id="cabecalho">
+		<ui:insert name="cabecalho">
+			<ui:include src="../Layout/cabecalho.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="conteudo">
+		<ui:insert name="conteudo">
+			<ui:include src="../Layout/conteudo.xhtml" />
+		</ui:insert>
+	</div>
+	<div id="rodape">
+		<ui:insert name="rodape">
+			<ui:include src="../Layout/rodape.xhtml" />
+		</ui:insert>
+	</div>
+</h:body>
+</html>

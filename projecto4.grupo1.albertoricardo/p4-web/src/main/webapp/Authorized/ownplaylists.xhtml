@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition template="../Authorized/Layout/layout.xhtml">
+		<ui:define name="conteudo">
+			<h:panelGroup layout="block" styleClass="container">
+				<h:panelGroup id="wrapper" layout="block" styleClass="wrapper">
+					<h:form id="form">
+						<p:growl id="growl" showDetail="true" autoUpdate="true" />
+						<p:dataTable id="myPlaylists" value="#{listPlaylist.playlists}"
+							var="pl" paginator="true" paginatorPosition="bottom" rows="4"
+							styleClass="paginated text-center"
+							emptyMessage="Nenhuma playlist encontrada." editable="true">
+							<p:ajax event="rowEdit" listener="#{listPlaylist.onRowEdit}"
+								update=":form:growl" onstart="disabled4edit();"
+								oncomplete="enabled4edit();" />
+							<p:ajax event="rowEditCancel"
+								listener="#{listPlaylist.onRowCancel}" update=":form:growl"
+								oncomplete="enabled4edit();" />
+							<f:facet name="header">As minhas Playlists</f:facet>
+							<p:column headerText="Data" sortBy="#{pl.insertDate}">
+								<h:outputText value="#{pl.insertDate}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Nome" sortBy="#{pl.name}">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{pl.name}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{pl.name}" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Nº Músicas (clique para listar)"
+								sortBy="#{pl.musics.size()}">
+								<p:commandLink value="#{pl.musics.size()}"
+									oncomplete="PF('addDialog').show()" update=":form:plm">
+									<f:setPropertyActionListener value="#{pl}"
+										target="#{listPlaylist.selectedPlaylist}" />
+								</p:commandLink>
+							</p:column>
+							<p:column headerText="Editar"
+								style="width:100px; text-align:center;">
+								<p:rowEditor />
+							</p:column>
+							<p:column headerText="Apagar" style="width:100px">
+								<p:commandButton icon="fa fa-times"
+									action="#{listPlaylist.deletePlaylist(pl)}" id="myCmdBtn"
+									update=":form:myPlaylists" ajax="true" />
+							</p:column>
+						</p:dataTable>
+						<p:dialog id="dlg" header="Musicas da Playlist"
+							widgetVar="addDialog" width="30%">
+							<p:dataTable id="plm"
+								value="#{listPlaylist.selectedPlaylist.getMusics()}" var="m"
+								paginator="true" rows="10" styleClass="paginated text-center"
+								widgetVar="listarmusicas"
+								emptyMessage="Nenhuma música encontrada." scrollable="true"
+								scrollWidth="100%">
+								<p:column headerText="Título" sortBy="#{m.title}">
+									<h:outputText value="#{m.title}" styleClass="text-center" />
+								</p:column>
+								<p:column headerText="Remover da Playlist">
+									<p:commandButton icon="ui-icon-trash"
+										action="#{listPlaylist.removeMusicFromPlaylist(m)}" update=":form:plm :form:myPlaylists"/>
+								</p:column>
+							</p:dataTable>
+						</p:dialog>
+					</h:form>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<h:panelGroup layout="block" styleClass="container">
+		<h:panelGroup layout="block" styleClass="wrapper">
+			<h:form styleClass="form-signin">
+			<p:growl id="growl" showDetail="true" autoUpdate="true"/>
+				<h:panelGroup id="loginDiv" rendered="#{loginChoose.showLogin}">
+					<h3 class="form-signin-heading">Bem-vind@! Faz login!</h3>
+					<hr class="colorgraph" />
+					<br />
+					E-mail: <span class="reqfield">*</span> <h:inputText id="mail" styleClass="form-control"
+						value="#{userLogin.email}" required="true" validator="#{userValidator.validate}">
+							<f:attribute name="pword" value="#{pword}"/>
+						</h:inputText>
+					Password: <span class="reqfield">*</span> <h:inputSecret id="passwordLogin" styleClass="form-control"
+						value="#{userLogin.password}" binding="#{pword}" required="true" />
+					<h:commandButton action="#{userLogin.doLogin}" value="Entrar"
+						styleClass="btn btn-lg btn-primary btn-block" />
+					<h:commandButton action="#{loginChoose.toggle()}" value="Registar"
+						styleClass="btn btn-lg btn-primary btn-block">
+						<f:ajax render="@form" />
+					</h:commandButton>
+					<h:outputText value="#{userLogin.result}" />
+				</h:panelGroup>
+				<h:panelGroup id="registerDiv"
+					rendered="#{loginChoose.showRegister}">
+					<h3 class="form-signin-heading">Bem-vind@! Faz o teu registo!</h3>
+					<hr class="colorgraph" />
+					<br />
+				Nome: <span class="reqfield">*</span> <h:inputText styleClass="form-control"
+						value="#{userRegister.name}" required="true"/>
+				E-mail: <span class="reqfield">*</span> <h:inputText id="regEmail" styleClass="form-control"
+						value="#{userRegister.email}" required="true" validator="#{emailValidator.validate}"/>
+				Password: <span class="reqfield">*</span> <h:inputSecret id="password" styleClass="form-control"
+						value="#{userRegister.password}" required="true" validator="passwordvalidate">
+							<f:attribute name="confirmPassword" value="#{confirmPassword}"/>
+						</h:inputSecret>
+				Conf. Password: <span class="reqfield">*</span> <h:inputSecret id="confirmPassword"
+						styleClass="form-control" value="#{userRegister.passwordConfirm}" binding="#{confirmPassword}" required="true"/>
+					<h:commandButton action="#{userRegister.addNewUser()}"
+						value="Registar" styleClass="btn btn-lg btn-primary btn-block">
+					</h:commandButton>
+					<h:commandButton action="#{loginChoose.toggle()}" value="Voltar"
+						styleClass="btn btn-lg btn-primary btn-block">
+						<f:ajax render="@form" />
+					</h:commandButton>
+					<br />
+					<h:outputText value="#{userRegister.result}" />
+				</h:panelGroup>
+			</h:form>
+		</h:panelGroup>
+	</h:panelGroup>
+</h:body>
+</html>

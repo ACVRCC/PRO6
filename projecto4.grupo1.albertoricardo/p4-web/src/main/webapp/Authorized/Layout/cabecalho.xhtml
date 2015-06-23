@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8" />
+	<h:outputScript library="js" name="jquery-2.1.4.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="npm.js" />
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	<h:outputStylesheet library="css" name="loginStyle.css" />
+	<title>Playlist</title>
+</h:head>
+<h:body>
+	<ui:composition>
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="navbar-header">
+				<ul class="nav navbar-nav">
+					<li><h:graphicImage value="/resources/imgs/icon.png"
+							styleClass="navbar-brand" /></li>
+					<li class="brandbotao"><h:form>
+							<p:commandButton action="entry.xhtml?faces-redirect=true" icon="fa fa-home"/>
+						</h:form></li>
+				</ul>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-navz">
+					<li class="center-email"><h:form prependId="false"
+							class="formnavbar">
+							<p:menuButton iconPos="right" value="#{userLogged.user.name}">
+								<p:menuitem value="Perfil"
+									url="/Authorized/profile.xhtml?faces-redirect=true"
+									icon="fa-user" />
+								<p:separator />
+								<p:menuitem value="Criar Playlist"
+									url="/Authorized/createPlaylist.xhtml" icon="fa fa-list-ol" />
+								<p:menuitem value="Inserir Musica"
+									url="/Authorized/uploadmusic.xhtml" icon="fa fa-upload" />
+								<p:menuitem value="As Minhas Musicas"
+									url="/Authorized/ownmusic.xhtml" icon="fa fa-music" />
+								<p:menuitem value="As Minhas Playlists"
+									url="/Authorized/ownplaylists.xhtml" icon="fa fa-navicon" />
+								<p:separator />
+								<p:menuitem value="Logout" action="#{userLogged.doLogout()}"
+									icon="fa fa-sign-out" />
+							</p:menuButton>
+						</h:form></li>
+				</ul>
+			</div>
+		</nav>
+	</ui:composition>
+</h:body>
+</html>
