@@ -12,11 +12,11 @@ public class LyricsRest {
 
 
 	public static void main(String[] args) {
-
+		int i=0;
 		while(true){
 			try{
-				String song="Something";
-				String artist="The Beatles";
+				String song="Chiquitita";
+				String artist="Abba";
 				ResteasyClient cliente= new ResteasyClientBuilder().build();
 				ResteasyWebTarget target=cliente.target("http://api.chartlyrics.com/apiv1.asmx/SearchLyricDirect?artist="+artist+"&song="+song);
 				Response response= target.request(MediaType.APPLICATION_XML).get();
@@ -24,7 +24,8 @@ public class LyricsRest {
 				System.out.println(lyrics);
 				return;
 			} catch(Exception e){
-				System.out.println("---");
+				i++;
+				System.out.println("Tentativa nº :--> "+i);
 
 			}
 		}
