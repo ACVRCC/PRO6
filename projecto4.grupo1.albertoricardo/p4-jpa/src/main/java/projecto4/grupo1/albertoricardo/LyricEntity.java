@@ -1,0 +1,62 @@
+package projecto4.grupo1.albertoricardo;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "lyrics")
+public class LyricEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+
+	@Column(name = "lyric", nullable = true, length = 999999)
+	private String lyric;
+	// @Column (name="musics", nullable=false)
+	@ManyToOne
+	private MusicEntity musics;
+	// @Column (name="userOwner", nullable=false)
+	@ManyToOne
+	private UserEntity userOwner;
+
+	public LyricEntity() {
+		super();
+		this.lyric = lyric;
+		this.musics = musics;
+		this.userOwner = userOwner;
+	}
+
+	public String getLyric() {
+		return lyric;
+	}
+
+	public void setLyric(String lyric) {
+		this.lyric = lyric;
+	}
+
+	public MusicEntity getMusics() {
+		return musics;
+	}
+
+	public void setMusics(MusicEntity musics) {
+		this.musics = musics;
+	}
+
+	public UserEntity getUserOwner() {
+		return userOwner;
+	}
+
+	public void setUserOwner(UserEntity userOwner) {
+		this.userOwner = userOwner;
+	}
+	@Override
+	public String toString() {
+		return "ID: "+id+", Musica: "+musics+", Letra: "+lyric;
+	}
+}

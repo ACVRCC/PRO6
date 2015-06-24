@@ -11,11 +11,11 @@ public class WikiaLyricsRest {
 
 
 	public static void main(String[] args) {
-
+		int i=0;
 		while(true){
 			try{
-				String song="Fernando";
-				String artist="Abba";
+				String song="You're My Heart, You're My Soul";
+				String artist="Modern Talking";
 				ResteasyClient cliente= new ResteasyClientBuilder().build();
 				ResteasyWebTarget target=cliente.target("http://lyrics.wikia.com/api.php?func=getSong&artist="+artist+"&song="+song+"&fmt=text");
 				Response response= target.request(MediaType.APPLICATION_XML).get();
@@ -23,7 +23,8 @@ public class WikiaLyricsRest {
 				System.out.println(lyrics);
 				return;
 			} catch(Exception e){
-				System.out.println("---");
+				i++;
+				System.out.println("Tentativa nº :--> "+i);
 
 			}
 		}
