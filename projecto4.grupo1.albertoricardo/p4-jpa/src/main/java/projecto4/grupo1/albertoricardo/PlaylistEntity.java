@@ -63,8 +63,8 @@ public class PlaylistEntity{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
+	} 
+	
 
 	public List<MusicEntity> getMusics() {
 		return musics;
