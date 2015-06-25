@@ -9,14 +9,18 @@ public class UserDTO {
 	private String password;
 	private List<MusicDTO> uploadedMusics;
 	private List<PListDTO> userPlaylists;
+	private LyricDTO lyric;
 	
-	
+	public LyricDTO getLyric() {
+		return lyric;
+	}
+	public void setLyric(LyricDTO lyric) {
+		this.lyric = lyric;
+	}
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}

@@ -12,14 +12,20 @@ public class MusicDTO {
 	private String pathFile;
 	private List<PListDTO> playlists;
 	private UserDTO userOwner;
+	private LyricDTO lyric;
 	
-	
+	public LyricDTO getLyric() {
+		return lyric;
+	}
+
+	public void setLyric(LyricDTO lyric) {
+		this.lyric = lyric;
+	}
+
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+
 	public String getTitle() {
 		return title;
 	}

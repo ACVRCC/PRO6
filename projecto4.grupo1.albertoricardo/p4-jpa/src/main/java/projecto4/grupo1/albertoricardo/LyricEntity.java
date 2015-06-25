@@ -16,7 +16,7 @@ public class LyricEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "lyric", nullable = true, length = 999999)
+	@Column(name = "lyric", nullable = true, length = 999999) //length 999999 porque por defeito varChar vem com 256 caracteres insuficiente para a letra de uma musica normal
 	private String lyric;
 
 	@ManyToOne
