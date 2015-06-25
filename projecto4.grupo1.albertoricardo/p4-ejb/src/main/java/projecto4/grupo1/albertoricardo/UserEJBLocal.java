@@ -1,8 +1,13 @@
 package projecto4.grupo1.albertoricardo;
 
 
-import javax.ejb.Local;
+import java.util.ArrayList;
 
+import javax.ejb.Local;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlRootElement
 @Local
 public interface UserEJBLocal {
 
@@ -19,7 +24,7 @@ public interface UserEJBLocal {
 	boolean changeUser(UserEntity user);
 
 	boolean deleteUser(UserEntity user);
-	
-	
+	@XmlTransient
+	public ArrayList<UserEntity> findAllUsers();
 
 }

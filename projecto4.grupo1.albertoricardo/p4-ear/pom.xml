@@ -18,7 +18,12 @@
 			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
-
+<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>thews-ws</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
 		<dependency>
 			<groupId>pt.uc.dei.paj</groupId>
 			<artifactId>p4-ejb</artifactId>
@@ -33,6 +38,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -55,6 +61,10 @@
 							<groupId>pt.uc.dei.paj</groupId>
 							<artifactId>p4-ejb</artifactId>
 						</ejbModule>
+						<webModule>
+							<groupId>pt.uc.dei.paj</groupId>
+							<artifactId>thews-ws</artifactId>
+						</webModule>
 					</modules>
 				</configuration>
 			</plugin>
