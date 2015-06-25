@@ -18,10 +18,10 @@ public class LyricEntity {
 
 	@Column(name = "lyric", nullable = true, length = 999999)
 	private String lyric;
-	// @Column (name="musics", nullable=false)
+
 	@ManyToOne
 	private MusicEntity musics;
-	// @Column (name="userOwner", nullable=false)
+
 	@ManyToOne
 	private UserEntity userOwner;
 
