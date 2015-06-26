@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +29,9 @@ public class UserEJB implements UserEJBLocal {
 	private UserCRUD crud;
 	@EJB
 	private MusicListEJBLocal mlistejb;
-	
+
 	private static Logger log = LoggerFactory.getLogger(UserEJB.class);
-	
+
 	public UserEJB() {
 
 	}
@@ -84,7 +85,7 @@ public class UserEJB implements UserEJBLocal {
 			mlistejb.removerUserOwnership(user);
 			crud.remove(user);
 			success = true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -115,7 +116,7 @@ public class UserEJB implements UserEJBLocal {
 		}
 		return name;
 	}
-
+	
 	@Override
 	public UserEntity getUserEntity(String username) {
 		UserEntity u = null;
@@ -129,11 +130,15 @@ public class UserEJB implements UserEJBLocal {
 		return u;
 
 	}
-
-public ArrayList<UserEntity> findAllUsers (){
+	// ***************************************NOVOS METODOS VERIFICAR SE ESTAO CORRECTOS!!!*******************************
 	
-	return (ArrayList <UserEntity>) em.createQuery("SELECT u FROM UserEntity u").getResultList();
-}
+	public ArrayList<UserEntity> findAllUsers (){
 
+		return (ArrayList <UserEntity>) em.createQuery("SELECT u FROM UserEntity u").getResultList();
+	}
+	public int countAllUsers (){
+		Query q = em.createQuery("SELECT u FROM UserEntity u");
+		return q.getResultList().size();
+	}
 }
 

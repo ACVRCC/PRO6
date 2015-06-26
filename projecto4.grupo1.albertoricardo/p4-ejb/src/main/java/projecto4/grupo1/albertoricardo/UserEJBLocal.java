@@ -4,6 +4,7 @@ package projecto4.grupo1.albertoricardo;
 import java.util.ArrayList;
 
 import javax.ejb.Local;
+import javax.persistence.Query;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -26,5 +27,6 @@ public interface UserEJBLocal {
 	boolean deleteUser(UserEntity user);
 	@XmlTransient
 	public ArrayList<UserEntity> findAllUsers();
-
+	@XmlTransient
+	public int countAllUsers();
 }
