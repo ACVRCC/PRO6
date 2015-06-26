@@ -133,7 +133,7 @@ public class UserEJB implements UserEJBLocal {
 public ArrayList<UserEntity> findAllUsers (){
 	
 	return (ArrayList <UserEntity>) em.createQuery("SELECT u FROM UserEntity u").getResultList();
-
 }
+
 }
 

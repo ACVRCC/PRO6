@@ -19,7 +19,8 @@ public class SimpleUserService {
 	
 	@GET
 	@Path("/List") //ACEDER ATRAVÉS DO PATH UTILIZADOR/LIST
-	@Produces(MediaType.APPLICATION_XML)
+//	@Produces(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
 	public ArrayList<UserEntity> getAllUsers(){	
 		return user.findAllUsers();
 	}
