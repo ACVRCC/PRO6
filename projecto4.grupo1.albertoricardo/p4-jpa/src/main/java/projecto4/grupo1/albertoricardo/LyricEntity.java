@@ -26,7 +26,6 @@ public class LyricEntity {
 	private UserEntity userOwner;
 
 	public LyricEntity() {
-		super();
 		this.lyric = lyric;
 		this.musics = musics;
 		this.userOwner = userOwner;
