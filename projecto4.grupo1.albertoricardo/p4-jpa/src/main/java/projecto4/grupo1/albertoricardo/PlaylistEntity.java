@@ -15,9 +15,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table (name="playlists")
+@XmlRootElement (name="playlists")
 public class PlaylistEntity{
 
 	@Id 
@@ -29,8 +32,10 @@ public class PlaylistEntity{
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false,unique=false)
 	private Date insertDate;
+	@XmlTransient	
 	@ManyToMany(fetch = FetchType.EAGER)
 	List<MusicEntity>musics;
+	@XmlTransient
 	@ManyToOne
 	private UserEntity userOwner;
 
@@ -65,7 +70,7 @@ public class PlaylistEntity{
 		this.name = name;
 	} 
 	
-
+	@XmlTransient
 	public List<MusicEntity> getMusics() {
 		return musics;
 	}
@@ -83,7 +88,7 @@ public class PlaylistEntity{
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
 	}
-
+	@XmlTransient
 	public UserEntity getUserOwner() {
 		return userOwner;
 	}

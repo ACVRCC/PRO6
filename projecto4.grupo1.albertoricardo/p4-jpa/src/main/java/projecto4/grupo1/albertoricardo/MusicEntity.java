@@ -13,9 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table (name="musics")
+@XmlRootElement (name="musics")
+
 public class MusicEntity {
 	
 
@@ -34,8 +38,10 @@ public class MusicEntity {
 	private Date dateRecord;
 	@Column(nullable=false)
 	private String pathFile;
+	@XmlTransient
 	@ManyToMany(mappedBy="musics")
 	List<PlaylistEntity> playlists;
+	@XmlTransient
 	@ManyToOne
 	private UserEntity userOwner;
 //	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
@@ -105,7 +111,7 @@ public class MusicEntity {
 	public void setDateRecord(Date dateRecord) {
 		this.dateRecord = dateRecord;
 	}
-
+	@XmlTransient
 	public UserEntity getUserOwner() {
 		return userOwner;
 	}

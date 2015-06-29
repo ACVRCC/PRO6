@@ -10,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table (name="users")
+@XmlRootElement (name="user")
 public class UserEntity {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
@@ -22,8 +25,10 @@ public class UserEntity {
 	private String password;
 	@Column(nullable=false)
 	private String name;
+	@XmlTransient
 	@OneToMany(mappedBy="userOwner")
 	private List<MusicEntity> uploadedMusics;
+	@XmlTransient
 	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
 	private List<PlaylistEntity> userPlaylists;
 //	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
@@ -46,6 +51,7 @@ public class UserEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPassword() {
 		return password;
 	}
