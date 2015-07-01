@@ -60,6 +60,11 @@
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:column>
+							<p:column headerText="Letra">
+									<p:commandButton value="Importar" icon="ui-icon-circle-plus"
+										action="#{lyricEditor.uploadLyric(music.id)}">
+									</p:commandButton>
+								</p:column>
 							<p:column headerText="Ouvir">
 								<p:commandButton icon="ui-icon-play"
 									action="#{playMusic.play(music.pathFile)}" />

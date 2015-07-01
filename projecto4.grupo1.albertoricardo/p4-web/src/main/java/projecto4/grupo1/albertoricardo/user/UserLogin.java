@@ -4,12 +4,11 @@ import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +23,12 @@ public class UserLogin implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final Logger log = LoggerFactory.getLogger(UserLogin.class);
 
 	@EJB
 	private UserEJBLocal userejb;
-	
+
 	@SuppressWarnings("unused")
 	@Inject
 	private LoginChoose lc;
@@ -43,18 +42,25 @@ public class UserLogin implements Serializable {
 	private String result = "";
 
 	public String doLogin() {
-		userlog.setUser(userejb.getUserEntity(email));
-		setFacesContext();
-		log.info("Utilizador "+email+" iniciou sessão.");
-		return "/Authorized/entry.xhtml?faces-redirect=true";
-	}
-
-	public void setFacesContext() {
+		System.out.println("passa 0");
 		FacesContext context = FacesContext.getCurrentInstance();
-		ExternalContext ext = context.getExternalContext();
-		HttpServletRequest request = (HttpServletRequest) ext.getRequest();
-		HttpSession session = request.getSession();
-		session.setAttribute("logged", "yes");
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+
+		try{
+			System.out.println("passa 1");
+			System.out.println("PASSWORD :--> "+password);
+			System.out.println("Email :--> "+email);
+			request.login(email, password);
+			
+			System.out.println("passa 2");
+			userlog.setUser(userejb.getUserEntity(email));
+			log.info("Utilizador "+email+" iniciou sessão.");
+			return "/Authorized/entry.xhtml?faces-redirect=true";
+		} catch (ServletException e){ 
+			System.out.println("erro 1");
+			log.debug("Alguém está a tentar aceder a conta com " + email + " e " + password);
+			return "/NonAuthorized.xhtml";
+		}
 	}
 
 	public int getId() {

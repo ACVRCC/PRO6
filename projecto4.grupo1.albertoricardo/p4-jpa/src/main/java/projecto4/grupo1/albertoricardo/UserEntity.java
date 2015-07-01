@@ -31,20 +31,25 @@ public class UserEntity {
 	@XmlTransient
 	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
 	private List<PlaylistEntity> userPlaylists;
-//	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
-//	private List<LyricEntity> lyricentities;
+	@Column(name="role", nullable=false)
+	private String role;
+	
 
 	public UserEntity() {
 		super();
+		this.role="CLIENT";
 	}
-
 	public UserEntity(String email, String password, String name) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.name = name;
+		this.role="CLIENT";
 	}
 
+	public String getRole() {
+		return role;
+	}
 	public String getEmail() {
 		return email;
 	}

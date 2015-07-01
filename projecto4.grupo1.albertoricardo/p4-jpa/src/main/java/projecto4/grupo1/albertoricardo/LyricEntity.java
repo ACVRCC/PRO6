@@ -20,16 +20,23 @@ public class LyricEntity {
 	private String lyric;
 
 	@ManyToOne
-	private MusicEntity musics;
+	private MusicEntity music;
 
 	@ManyToOne
 	private UserEntity userOwner;
-
-	public LyricEntity() {
-		this.lyric = lyric;
-		this.musics = musics;
-		this.userOwner = userOwner;
+	
+	
+	public LyricEntity(){
+		
 	}
+
+	public LyricEntity(int id, String lyric) {
+		this.id = id;
+		this.lyric = lyric;
+	
+	}
+
+
 
 	public String getLyric() {
 		return lyric;
@@ -39,12 +46,13 @@ public class LyricEntity {
 		this.lyric = lyric;
 	}
 
-	public MusicEntity getMusics() {
-		return musics;
+
+	public MusicEntity getMusic() {
+		return music;
 	}
 
-	public void setMusics(MusicEntity musics) {
-		this.musics = musics;
+	public void setMusic(MusicEntity music) {
+		this.music = music;
 	}
 
 	public UserEntity getUserOwner() {
@@ -56,6 +64,6 @@ public class LyricEntity {
 	}
 	@Override
 	public String toString() {
-		return "ID: "+id+", Musica: "+musics+", Letra: "+lyric;
+		return "ID: "+id+", Musica: "+music+", Letra: "+lyric;
 	}
 }

@@ -122,5 +122,10 @@
       <artifactId>resteasy-client</artifactId>
       <version>3.0.2.Final</version>
   </dependency>
+  <dependency>
+  	<groupId>net.java.dev.rome</groupId>
+  	<artifactId>rome</artifactId>
+  	<version>1.0.0</version>
+  </dependency>
 	</dependencies>
 </project>

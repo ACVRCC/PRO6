@@ -113,4 +113,32 @@ public class MusicListEJB implements MusicListEJBLocal {
 		}
 		
 	}
+//	**************************
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<MusicEntity> getOwnMusics(int id) { 
+		ArrayList<MusicEntity> pe = new ArrayList<>();
+		try {
+			Query q = em.createQuery("SELECT p FROM MusicEntity p WHERE p.userOwner.id = :id")
+					.setParameter("id", id);
+			pe = (ArrayList<MusicEntity>) q.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.warn("catch exception - getOwnPlaylists method");
+		}
+		return pe;
+	}
+	public ArrayList<MusicEntity> getMusicsFromId(int id) { 
+		ArrayList<MusicEntity> pe = new ArrayList<>();
+		try {
+			Query q = em.createQuery("SELECT p FROM MusicEntity p WHERE p.id = :id")
+					.setParameter("id", id);
+			pe = (ArrayList<MusicEntity>) q.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.warn("catch exception - getOwnPlaylists method");
+		}
+		return pe;
+	}
 }

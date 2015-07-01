@@ -28,6 +28,6 @@ public interface PlaylistEJBLocal {
 	void updateName(int id, String name);
 
 	void update(PlaylistEntity playlist);
-	
-	
+	@XmlTransient
+	public List<PlaylistEntity> getMusicFromPlaylists(int id);
 }

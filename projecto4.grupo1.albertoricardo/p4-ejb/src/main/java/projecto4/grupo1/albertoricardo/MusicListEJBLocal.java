@@ -1,6 +1,7 @@
 package projecto4.grupo1.albertoricardo;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,5 +24,9 @@ public interface MusicListEJBLocal {
 	boolean removerUserOwnership(UserEntity user);
 
 	void removerMusicUserOwnership(MusicEntity m, UserEntity user);
+	@XmlTransient	
+	ArrayList<MusicEntity> getOwnMusics(int id);
+	@XmlTransient	
+	ArrayList<MusicEntity> getMusicsFromId(int id);
 	
 }

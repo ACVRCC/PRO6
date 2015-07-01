@@ -152,5 +152,16 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	public void update(PlaylistEntity playlist) {
 		pl_crud.update(playlist);
 	}
-
+//***********************************************
+	public List<PlaylistEntity> getMusicFromPlaylists(int id) { 
+		List<PlaylistEntity> pe = new ArrayList<>();
+		try {
+			Query q = em.createQuery("SELECT m from PlaylistEntity p JOIN p.musics m Where p.id= :"+id);
+			pe = (ArrayList<PlaylistEntity>) q.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.warn("catch exception - getPlaylists method");
+		}
+		return pe;
+	}
 }

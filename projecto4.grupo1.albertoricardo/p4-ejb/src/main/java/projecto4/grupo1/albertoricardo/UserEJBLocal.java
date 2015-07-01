@@ -14,7 +14,7 @@ public interface UserEJBLocal {
 
 	public abstract boolean verifyLogin(String email, String password);
 
-	public abstract void registerUser(String username, String password, String name);
+	public void registerUser(String username, String password, String name);
 
 	int getUserID(String username);
 
@@ -26,7 +26,12 @@ public interface UserEJBLocal {
 
 	boolean deleteUser(UserEntity user);
 	@XmlTransient
+	
 	public ArrayList<UserEntity> findAllUsers();
 	@XmlTransient
 	public int countAllUsers();
+	@XmlTransient
+	public UserEntity getUserFromId(int id);
+	@XmlTransient
+	public void registerNewUser(UserEntity u);
 }

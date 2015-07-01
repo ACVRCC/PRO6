@@ -8,14 +8,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
+
+
 
 @Named
 @SessionScoped
@@ -42,12 +46,15 @@ public class UserLogged implements Serializable {
 
 	public String doLogout() {
 		FacesContext context = FacesContext.getCurrentInstance();
-		ExternalContext ext = context.getExternalContext();
-		HttpServletRequest req = (HttpServletRequest) ext.getRequest();
-		HttpSession session = req.getSession();
-		session.invalidate();
-		log.info("Utilizador "+user.getEmail()+" encerrou a sessão.");
-		return "/login.xhtml?faces-redirect=true";
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		try{
+			request.logout();
+			log.info("Utilizador "+user.getEmail()+" encerrou a sessão.");
+			return "/login.xhtml//?faces-redirect=true"; 
+		} catch (ServletException e) {
+			log.error("Utilizador "+user.getEmail()+" falha logout.");
+			return ""; 
+		}
 	}
 
 	public boolean changeSettings() {

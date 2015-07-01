@@ -1,5 +1,12 @@
 package projecto4.grupo1.albertoricardo.music;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -7,18 +14,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicUploadEJBLocal;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.util.Date;
 
 @Named
 @RequestScoped

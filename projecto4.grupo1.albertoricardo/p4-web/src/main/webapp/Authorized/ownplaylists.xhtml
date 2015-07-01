@@ -49,10 +49,12 @@
 								</p:cellEditor>
 							</p:column>
 
-							<p:column headerText="Nº Músicas (clique para listar)"
-								sortBy="#{pl.musics.size()}">
-								<p:commandLink value="#{pl.musics.size()}"
-									oncomplete="PF('addDialog').show()" update=":form:plm">
+							<p:column headerText="Nº Músicas" sortBy="#{pl.musics.size()}">
+								<h:outputText value="#{pl.musics.size()}" />
+							</p:column>
+							<p:column headerText="Músicas e letras">
+								<p:commandLink value="Ver" oncomplete="PF('addDialog').show()"
+									update=":form:plm">
 									<f:setPropertyActionListener value="#{pl}"
 										target="#{listPlaylist.selectedPlaylist}" />
 								</p:commandLink>
@@ -67,8 +69,9 @@
 									update=":form:myPlaylists" ajax="true" />
 							</p:column>
 						</p:dataTable>
-						<p:dialog id="dlg" header="Musicas da Playlist"
-							widgetVar="addDialog" width="30%">
+					
+						<p:dialog id="dlg" header="Músicas da Playlist"
+							widgetVar="addDialog" width="80%">
 							<p:dataTable id="plm"
 								value="#{listPlaylist.selectedPlaylist.getMusics()}" var="m"
 								paginator="true" rows="10" styleClass="paginated text-center"
@@ -78,11 +81,36 @@
 								<p:column headerText="Título" sortBy="#{m.title}">
 									<h:outputText value="#{m.title}" styleClass="text-center" />
 								</p:column>
+								<p:column headerText="Artista" sortBy="#{m.artist}">
+									<h:outputText value="#{m.artist}" styleClass="text-center" />
+								</p:column>
+								<p:column headerText="Letra">
+									<p:commandButton value="Ver"
+										action="#{lyricEditor.lyricString(m.id)}" />
+								</p:column>
+								<p:column headerText="Letra">
+									<p:commandButton
+										update="@form :form:plm :form:myPlaylists :form:dlg :form:dilg "
+										value="Editar" type="button" oncomplete="PF('dlg1').show();">
+										<f:setPropertyActionListener value="#{m.id}"
+											target="#{lyricEditor.musicIdTemp}" />
+									</p:commandButton>
+								</p:column>
 								<p:column headerText="Remover da Playlist">
 									<p:commandButton icon="ui-icon-trash"
-										action="#{listPlaylist.removeMusicFromPlaylist(m)}" update=":form:plm :form:myPlaylists"/>
+										action="#{listPlaylist.removeMusicFromPlaylist(m)}"
+										update=":form:plm :form:myPlaylists" />
 								</p:column>
 							</p:dataTable>
+
+						</p:dialog>
+				>
+						<p:dialog header="Letra" widgetVar="dlg1" minHeight="40" id="dilg">
+
+							<p:inplace>
+								<p:inputTextarea value="#{lyricEditor.lyricTemp}" label="lyric" />
+							</p:inplace>
+
 						</p:dialog>
 					</h:form>
 				</h:panelGroup>

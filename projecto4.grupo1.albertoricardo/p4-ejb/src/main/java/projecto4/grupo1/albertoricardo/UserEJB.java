@@ -22,7 +22,7 @@ import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
  */
 @Stateless
 public class UserEJB implements UserEJBLocal {
-	@PersistenceContext(name="Playlist")
+	@PersistenceContext(name = "Playlist")
 	EntityManager em;
 
 	@EJB
@@ -39,13 +39,16 @@ public class UserEJB implements UserEJBLocal {
 	@Override
 	public boolean verifyLogin(String email, String password) {
 		boolean verified;
-		Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+		Query q = em
+				.createQuery("select u from UserEntity u where u.email like :e");
 		q.setParameter("e", email);
 		try {
 			UserEntity usr = (UserEntity) q.getSingleResult();
 			PasswordEncryptor pe = new PasswordEncryptor();
-			if (pe.check(password, usr.getPassword())) verified = true;
-			else verified = false;
+			if (pe.check(password, usr.getPassword()))
+				verified = true;
+			else
+				verified = false;
 		} catch (NoResultException nre) {
 			verified = false;
 			nre.printStackTrace();
@@ -61,7 +64,7 @@ public class UserEJB implements UserEJBLocal {
 		String ePassword = pe.encrypt(password);
 		UserEntity u = new UserEntity(username, ePassword, name);
 		crud.create(u);
-		log.info("Novo utilizador registado: "+username);
+		log.info("Novo utilizador registado: " + username);
 	}
 
 	@Override
@@ -95,7 +98,8 @@ public class UserEJB implements UserEJBLocal {
 
 	@Override
 	public int getUserID(String username) {
-		Query q = em.createQuery("select u.id from UserEntity u where u.email like :e");
+		Query q = em
+				.createQuery("select u.id from UserEntity u where u.email like :e");
 		q.setParameter("e", username);
 		int id = (Integer) q.getSingleResult();
 		return id;
@@ -105,40 +109,67 @@ public class UserEJB implements UserEJBLocal {
 	public String getName(String username) {
 		String name = null;
 		try {
-			Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+			Query q = em
+					.createQuery("select u from UserEntity u where u.email like :e");
 			q.setParameter("e", username);
 			UserEntity u = (UserEntity) q.getSingleResult();
 			name = u.getName();
-		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Login", 
+		} catch (Exception e) {
+			FacesMessage msg = new FacesMessage("Login",
 					"Utilizador inexistente.");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
 		return name;
 	}
-	
+
 	@Override
 	public UserEntity getUserEntity(String username) {
 		UserEntity u = null;
 		try {
-			Query q = em.createQuery("select u from UserEntity u where u.email like :e");
+			Query q = em
+					.createQuery("select u from UserEntity u where u.email like :e");
 			q.setParameter("e", username);
 			u = (UserEntity) q.getSingleResult();
-		} catch(NoResultException nre) {
+		} catch (NoResultException nre) {
 			nre.printStackTrace();
 		}
 		return u;
 
 	}
-	// ***************************************NOVOS METODOS VERIFICAR SE ESTAO CORRECTOS!!!*******************************
-	
-	public ArrayList<UserEntity> findAllUsers (){
 
-		return (ArrayList <UserEntity>) em.createQuery("SELECT u FROM UserEntity u").getResultList();
+	// ***************************************NOVOS METODOS VERIFICAR SE ESTAO
+	// CORRECTOS!!!*******************************
+
+	public ArrayList<UserEntity> findAllUsers() {
+
+		return (ArrayList<UserEntity>) em.createQuery(
+				"SELECT u FROM UserEntity u").getResultList();
 	}
-	public int countAllUsers (){
+
+	public int countAllUsers() {
 		Query q = em.createQuery("SELECT u FROM UserEntity u");
 		return q.getResultList().size();
 	}
-}
 
+	public UserEntity getUserFromId(int id) {
+		UserEntity u = null;
+		try {
+			Query q = em
+					.createQuery("select u from UserEntity u where u.id = :id");
+			q.setParameter("id", id);
+			u = (UserEntity) q.getSingleResult();
+		} catch (NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return u;
+	}
+	@Override
+	public void registerNewUser(UserEntity u) {
+	
+		PasswordEncryptor pe = new PasswordEncryptor();
+		String ePassword = pe.encrypt(u.getPassword());
+		u.setPassword(ePassword);
+		crud.create(u);
+		log.info("Novo utilizador registado: " + u.getName());
+	}
+}
