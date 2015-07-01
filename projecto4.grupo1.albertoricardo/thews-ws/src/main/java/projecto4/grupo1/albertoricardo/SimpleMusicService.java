@@ -40,7 +40,7 @@ public class SimpleMusicService {
 	}
 	
 	@GET
-	@Path("/List/{id}") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Music/List/name
+	@Path("/List/{id}") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Music/List/id
 	//Serviço nº13 procura por id do utilizador
 	@Produces(MediaType.APPLICATION_XML)
 //	@Produces(MediaType.TEXT_PLAIN)
