@@ -28,8 +28,8 @@ public class LyricEditor implements Serializable{
 	@Inject
 	private UserLogged userlogged;
 
-	private String lyricTemp="";
-	private String lyricEdited="";
+	private String lyricTemp=null;
+	private String lyricEdited=null;
 	private int musicIdTemp=0;
 	
 
@@ -41,6 +41,11 @@ public class LyricEditor implements Serializable{
 	public void uploadLyric(int idMusic){
 		le.uploadLyricDB(idMusic);			
 	}
+	
+	public void newUploadLyric(){
+		le.newUploadLyricDB(userlogged.getUser().getId(), musicIdTemp);			
+	}
+	
 	
 	public void saveLyric(){	
 		le.upSaveLyricDB(userlogged.getUser().getId(), musicIdTemp, lyricTemp);			
@@ -63,7 +68,7 @@ public class LyricEditor implements Serializable{
 
 	public void lyricEditedString(){
 	//	if(musicIdTemp!=0)
-		setLyricEdited(le.readEditedLyric(userlogged.getUser().getId(),musicIdTemp));	
+		lyricEdited=(le.readEditedLyric(userlogged.getUser().getId(),musicIdTemp));	
 //		else
 //			log.error("Leitura de letra cancelada: parâmetro nulo");
 	}

@@ -1,9 +1,9 @@
 package projecto4.grupo1.albertoricardo;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,9 +11,6 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import projecto4.grupo1.albertoricardo.entities.LyricEntity;
-import projecto4.grupo1.albertoricardo.entities.MusicEntity;
-import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import rest.LyricsRest;
 
 @Stateless
@@ -25,7 +22,7 @@ public class LyricEditorEJB {
 
 	private static Logger log = LoggerFactory.getLogger(LyricEditorEJB.class);
 
-	@EJB
+	@Inject
 	private LyricEJBLocal crud;
 
 
@@ -50,6 +47,24 @@ public class LyricEditorEJB {
 		}
 	}
 
+	public void newUploadLyricDB(int idUserOwner, int idMusic) {
+
+		LyricsRest lr = new LyricsRest();
+		LyricEntity le = getLyricEntity(idUserOwner, idMusic);
+		MusicEntity me = em.find(MusicEntity.class, idMusic);
+		le.setLyric(lr.chartRestLyric(me.getTitle(), me.getArtist()));
+
+	
+		try {
+			crud.update(le);
+			FacesMessage msg = new FacesMessage("Letra","Upload realizado com sucesso!");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		} catch (Exception e) {
+			log.error("Erro a guardar nova letra",e);
+			FacesMessage msg = new FacesMessage("Letra","Erro ao fazer upload.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
 
 
 	public void upSaveLyricDB(int idUserOwner, int idMusic, String editedLyric) {
@@ -85,8 +100,7 @@ public class LyricEditorEJB {
 		boolean success = false;
 
 		LyricEntity le = getLyricEntity(idUserOwner, idMusic);
-		le.setLyric(editedLyric);
-		System.out.println("vai fazer update da lyricEntity id:"+le.getId());		
+		le.setLyric(editedLyric);		
 		try {
 			crud.update(le);
 			success = true;
@@ -128,7 +142,7 @@ public class LyricEditorEJB {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.warn("Erro ao obter letra de música editada");
+			log.error("Erro ao obter letra de música editada");
 		}
 		return le;
 	}	

@@ -4,8 +4,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import projecto4.grupo1.albertoricardo.entities.LyricEntity;
-
 @Stateless
 public class LyricEJB implements LyricEJBLocal{
 
@@ -29,7 +27,7 @@ public class LyricEJB implements LyricEJBLocal{
 		}
 		@Override
 		public LyricEntity find(Object id) {
-			  return em.find(LyricEntity.class, id);
+			  return em.find(projecto4.grupo1.albertoricardo.LyricEntity.class, id);
 		}
 	
 	
