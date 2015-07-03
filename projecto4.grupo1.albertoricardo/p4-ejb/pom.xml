@@ -23,8 +23,6 @@
 			</plugin>
 		</plugins>
 
-
-
 	</build>
 
 	<dependencies>
@@ -32,6 +30,7 @@
 			<groupId>pt.uc.dei.paj</groupId>
 			<artifactId>p4-jpa</artifactId>
 			<version>${project.version}</version>
+			
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
@@ -54,12 +53,6 @@
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-jdk8</artifactId>
 			<!-- <version>${org.mapstruct.version}</version> -->
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>1.10.19</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jmock</groupId>

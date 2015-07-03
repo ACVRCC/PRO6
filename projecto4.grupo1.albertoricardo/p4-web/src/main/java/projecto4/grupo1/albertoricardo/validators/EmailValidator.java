@@ -9,7 +9,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Inject;
 import javax.inject.Named;
+
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 
 @Named
@@ -21,7 +23,7 @@ public class EmailValidator implements Validator {
 	
 
 	
-	@EJB
+	@Inject
 	private UserEJBLocal userejb;
 
 	private Pattern pattern;

@@ -2,6 +2,8 @@ package projecto4.grupo1.albertoricardo;
 
 import javax.ejb.Local;
 
+import projecto4.grupo1.albertoricardo.entities.LyricEntity;
+
 
 
 
@@ -11,8 +13,8 @@ import javax.ejb.Local;
 	public interface LyricEJBLocal {
 
 		
-	    LyricEntity create(LyricEntity lyric);
-	    LyricEntity update(LyricEntity lyric);
-	    void remove(LyricEntity lyric);
-	    LyricEntity find(Object id);
+	    public LyricEntity create(LyricEntity lyric);
+	    public LyricEntity update(LyricEntity lyric);
+	    public void remove(LyricEntity lyric);
+	    public LyricEntity find(Object id);
 	}

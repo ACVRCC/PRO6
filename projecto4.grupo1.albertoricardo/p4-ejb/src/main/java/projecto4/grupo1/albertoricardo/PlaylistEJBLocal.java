@@ -7,6 +7,9 @@ import javax.ejb.Local;
 import javax.xml.bind.annotation.XmlTransient;
 
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
 @Local
 public interface PlaylistEJBLocal {
@@ -14,7 +17,7 @@ public interface PlaylistEJBLocal {
 	void addPlaylist(String name, Date insertDate, UserEntity userlogged);
 
 	List<PListDTO> getPlaylistDozer();
-	@XmlTransient
+	
 	List<PlaylistEntity> getPlaylists();
 
 	List<PlaylistEntity> getOwnPlaylists(int id);
@@ -28,6 +31,17 @@ public interface PlaylistEJBLocal {
 	void updateName(int id, String name);
 
 	void update(PlaylistEntity playlist);
-	@XmlTransient
+	
 	public List<PlaylistEntity> getMusicFromPlaylists(int id);
+
+	public PlaylistEntity getPlaylistFromId(int id);
+
+	public void updateMusic(PlaylistEntity playlist, MusicEntity musics);
+
+	void removeMusic(PlaylistEntity playlist, MusicEntity musics);
+
+
+
+
+
 }

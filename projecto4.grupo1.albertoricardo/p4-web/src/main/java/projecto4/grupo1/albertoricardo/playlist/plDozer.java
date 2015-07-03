@@ -3,8 +3,8 @@ package projecto4.grupo1.albertoricardo.playlist;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
@@ -19,7 +19,7 @@ public class plDozer implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB
+	@Inject
 	private PlaylistEJBLocal plejb;
 	
 	private List<PListDTO> plist;

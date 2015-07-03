@@ -21,8 +21,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import projecto4.grupo1.albertoricardo.PlaylistCRUD;
 import projecto4.grupo1.albertoricardo.PlaylistEJB;
-import projecto4.grupo1.albertoricardo.PlaylistEntity;
-import projecto4.grupo1.albertoricardo.UserEntity;
+import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PlaylistEJBTest {

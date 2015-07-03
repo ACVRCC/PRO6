@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.entities;
 
 import java.util.List;
 

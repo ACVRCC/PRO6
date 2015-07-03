@@ -6,6 +6,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
+
 @Stateless
 public class UserCRUD {
 

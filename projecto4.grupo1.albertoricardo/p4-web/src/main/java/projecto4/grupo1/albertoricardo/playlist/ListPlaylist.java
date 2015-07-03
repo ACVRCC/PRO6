@@ -15,10 +15,10 @@ import org.primefaces.event.RowEditEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import projecto4.grupo1.albertoricardo.MusicEntity;
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
-import projecto4.grupo1.albertoricardo.PlaylistEntity;
-import projecto4.grupo1.albertoricardo.UserEntity;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
@@ -32,7 +32,7 @@ public class ListPlaylist implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static Logger log = LoggerFactory.getLogger(ListPlaylist.class);
-	@EJB
+	@Inject
 	private PlaylistEJBLocal plistejb;
 
 	@Inject

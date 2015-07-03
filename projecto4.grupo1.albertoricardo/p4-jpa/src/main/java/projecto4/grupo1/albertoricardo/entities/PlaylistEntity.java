@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.entities;
 
 import java.util.Date;
 import java.util.List;
@@ -96,7 +96,7 @@ public class PlaylistEntity{
 	public void setUserOwner(UserEntity userOwner) {
 		this.userOwner = userOwner;
 	}
-
+	
 	public void setMusics(List<MusicEntity> musics) {
 		this.musics = musics;
 	}

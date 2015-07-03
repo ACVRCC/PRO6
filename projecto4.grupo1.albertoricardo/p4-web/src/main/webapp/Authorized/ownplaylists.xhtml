@@ -52,12 +52,12 @@
 							<p:column headerText="Nº Músicas" sortBy="#{pl.musics.size()}">
 								<h:outputText value="#{pl.musics.size()}" />
 							</p:column>
-							<p:column headerText="Músicas e letras">
-								<p:commandLink value="Ver" oncomplete="PF('addDialog').show()"
+							<p:column headerText="Músicas e edição de letras">
+								<p:commandButton value="Ver/Editar" oncomplete="PF('addDialog').show()"
 									update=":form:plm">
 									<f:setPropertyActionListener value="#{pl}"
 										target="#{listPlaylist.selectedPlaylist}" />
-								</p:commandLink>
+								</p:commandButton>
 							</p:column>
 							<p:column headerText="Editar"
 								style="width:100px; text-align:center;">
@@ -69,7 +69,7 @@
 									update=":form:myPlaylists" ajax="true" />
 							</p:column>
 						</p:dataTable>
-					
+
 						<p:dialog id="dlg" header="Músicas da Playlist"
 							widgetVar="addDialog" width="80%">
 							<p:dataTable id="plm"
@@ -84,34 +84,38 @@
 								<p:column headerText="Artista" sortBy="#{m.artist}">
 									<h:outputText value="#{m.artist}" styleClass="text-center" />
 								</p:column>
+
 								<p:column headerText="Letra">
-									<p:commandButton value="Ver"
-										action="#{lyricEditor.lyricString(m.id)}" />
-								</p:column>
-								<p:column headerText="Letra">
-									<p:commandButton
-										update="@form :form:plm :form:myPlaylists :form:dlg :form:dilg "
-										value="Editar" type="button" oncomplete="PF('dlg1').show();">
+									<p:commandButton  icon="ui-icon-comment"
+										oncomplete="PF('dlg1').show()"
+										update="@form :form:ldlg :form:dlg">
 										<f:setPropertyActionListener value="#{m.id}"
 											target="#{lyricEditor.musicIdTemp}" />
 									</p:commandButton>
 								</p:column>
+
 								<p:column headerText="Remover da Playlist">
 									<p:commandButton icon="ui-icon-trash"
 										action="#{listPlaylist.removeMusicFromPlaylist(m)}"
 										update=":form:plm :form:myPlaylists" />
 								</p:column>
+
 							</p:dataTable>
-
 						</p:dialog>
-				>
-						<p:dialog header="Letra" widgetVar="dlg1" minHeight="40" id="dilg">
 
-							<p:inplace>
-								<p:inputTextarea value="#{lyricEditor.lyricTemp}" label="lyric" />
-							</p:inplace>
+						<p:scrollPanel mode="native" style="max-height:500px;margi">
+							<p:dialog closeOnEscape="true" id="ldlg" header="Letra"
+								widgetVar="dlg1" width="40%" height="500px">
+								<p:inputTextarea style="width:100%;"
+									value="#{lyricEditor.lyricEdited}" label="customLyrics" />
+								<h:panelGroup layout="block"
+									style="text-align:right;margin-top:20px;">
+									<p:commandButton id="lyricbutton" value="Gravar"
+										action="#{lyricEditor.updateLyric()}" update="@form" />
+								</h:panelGroup>
+							</p:dialog>
+						</p:scrollPanel>
 
-						</p:dialog>
 					</h:form>
 				</h:panelGroup>
 			</h:panelGroup>

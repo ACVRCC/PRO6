@@ -12,8 +12,8 @@ import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 
-import projecto4.grupo1.albertoricardo.MusicEntity;
 import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
@@ -25,7 +25,7 @@ public class ListMusic implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB
+	@Inject
 	private MusicListEJBLocal mlejb;
 
 	@Inject

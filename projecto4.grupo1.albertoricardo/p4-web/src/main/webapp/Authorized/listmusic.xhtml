@@ -60,11 +60,18 @@
 									<f:convertDateTime pattern="dd/MM/yyyy" />
 								</h:outputText>
 							</p:column>
+
 							<p:column headerText="Letra">
-									<p:commandButton value="Importar" icon="ui-icon-circle-plus"
-										action="#{lyricEditor.uploadLyric(music.id)}">
-									</p:commandButton>
-								</p:column>
+								<p:commandButton  icon="ui-icon-comment"
+									 oncomplete="PF('dlg1').show()"
+									update="@form">
+									<f:setPropertyActionListener value="#{music.id}"
+										target="#{lyricEditor.musicIdTemp}" />
+								</p:commandButton>
+						
+								
+							</p:column>
+
 							<p:column headerText="Ouvir">
 								<p:commandButton icon="ui-icon-play"
 									action="#{playMusic.play(music.pathFile)}" />
@@ -80,6 +87,20 @@
 								</p:commandButton>
 							</p:column>
 						</p:dataTable>
+
+						<p:scrollPanel mode="native" style="max-height:500px;margi">
+							<p:dialog closeOnEscape="true" id="ldlg" header="Letra"
+								widgetVar="dlg1" width="40%" height="500px">
+								<p:inputTextarea style="width:100%;"
+									value="#{lyricEditor.lyricTemp}" label="customLyrics" />
+								<h:panelGroup layout="block"
+									style="text-align:right;margin-top:20px;">
+									<p:commandButton id="lyricbutton" value="Gravar"
+										action="#{lyricEditor.saveLyric()}" update="@form" />
+								</h:panelGroup>
+							</p:dialog>
+						</p:scrollPanel>
+
 					</h:form>
 					<h:form>
 						<p:dialog id="dialog" header="Playlist" widgetVar="addDialog"

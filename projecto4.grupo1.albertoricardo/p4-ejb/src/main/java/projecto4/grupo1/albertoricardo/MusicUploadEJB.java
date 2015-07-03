@@ -2,17 +2,18 @@ package projecto4.grupo1.albertoricardo;
 
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import projecto4.grupo1.albertoricardo.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
 
 
@@ -22,6 +23,9 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 
 	@PersistenceContext(name="Playlist")
 	private EntityManager em;
+	
+	@EJB
+	private LyricEditorEJB le;
 
 	private static Logger log = LoggerFactory.getLogger(MusicUploadEJB.class);
 
@@ -43,6 +47,8 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 		me.setUserOwner(ue);
 		try {
 			em.persist(me);
+			System.out.println("idMusica de novo upload"+me.getId());
+			le.uploadLyricDB(me.getId());
 			FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {

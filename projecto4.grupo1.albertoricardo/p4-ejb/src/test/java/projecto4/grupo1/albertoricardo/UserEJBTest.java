@@ -13,6 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import projecto4.grupo1.albertoricardo.UserEJB;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 
 

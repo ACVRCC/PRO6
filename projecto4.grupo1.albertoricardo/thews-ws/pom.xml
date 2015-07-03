@@ -25,16 +25,16 @@
 		
 		<dependency>
 			<groupId>pt.uc.dei.paj</groupId>
+			<artifactId>p4-ejb</artifactId>
+			<version>${project.version}</version>
+	
+		</dependency>
+
+		<dependency>
+			<groupId>pt.uc.dei.paj</groupId>
 			<artifactId>p4-jpa</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
-			<dependency>
-			<groupId>pt.uc.dei.paj</groupId>
-			<artifactId>p4-ejb</artifactId>
-			<version>${project.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
 	</dependencies>
 </project>

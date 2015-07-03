@@ -11,10 +11,10 @@
 
 	<!-- 2. Definir modulos associados a este pom "pai" -->
 	<modules>
+		<module>p4-jpa</module>
 		<module>p4-ear</module>
 		<module>p4-web</module>
 		<module>p4-ejb</module>
-		<module>p4-jpa</module>
 		<module>thews-ws</module>
 	</modules>
 

@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 
 /**
@@ -27,6 +28,7 @@ public class UserEJB implements UserEJBLocal {
 
 	@EJB
 	private UserCRUD crud;
+	
 	@EJB
 	private MusicListEJBLocal mlistejb;
 
@@ -150,7 +152,8 @@ public class UserEJB implements UserEJBLocal {
 		Query q = em.createQuery("SELECT u FROM UserEntity u");
 		return q.getResultList().size();
 	}
-
+	
+	@Override
 	public UserEntity getUserFromId(int id) {
 		UserEntity u = null;
 		try {

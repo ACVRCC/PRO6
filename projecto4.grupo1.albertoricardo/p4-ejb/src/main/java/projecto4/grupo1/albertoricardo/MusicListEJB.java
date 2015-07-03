@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,7 +15,8 @@ import javax.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import projecto4.grupo1.albertoricardo.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
 
 
@@ -82,13 +84,10 @@ public class MusicListEJB implements MusicListEJBLocal {
 			if (complete > 0) {
 				log.info("Alteração de propriedade a música");
 				success = true;
-				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+			
 			}
 		} catch (Exception e) {
 			log.error("Erro ao remover proprietário da música");
-			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 		
 		return success;
@@ -103,13 +102,11 @@ public class MusicListEJB implements MusicListEJBLocal {
 					.setParameter("mid", m.getId())
 					.executeUpdate();
 			if (complete > 0) { 
-				FacesMessage msg = new FacesMessage("Música","Propriedade removida com sucesso.");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				
 			}
 		} catch (Exception e) {
 			log.error("Erro ao remover proprietário da música");
-			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
 		}
 		
 	}
@@ -129,6 +126,7 @@ public class MusicListEJB implements MusicListEJBLocal {
 		}
 		return pe;
 	}
+	@Override
 	public ArrayList<MusicEntity> getMusicsFromId(int id) { 
 		ArrayList<MusicEntity> pe = new ArrayList<>();
 		try {
@@ -140,5 +138,19 @@ public class MusicListEJB implements MusicListEJBLocal {
 			log.warn("catch exception - getOwnPlaylists method");
 		}
 		return pe;
+	}
+	@Override
+	public MusicEntity getMusicFromId(int id) { 
+		ArrayList<MusicEntity> pe = new ArrayList<>();
+		MusicEntity m = null;
+		try {
+			Query q = em.createQuery("SELECT p FROM MusicEntity p WHERE p.id = :id")
+					.setParameter("id", id);
+			m = (MusicEntity) q.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.warn("catch exception - getOwnPlaylists method");
+		}
+		return m;
 	}
 }

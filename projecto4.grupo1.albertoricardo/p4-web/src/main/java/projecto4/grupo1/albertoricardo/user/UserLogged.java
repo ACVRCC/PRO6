@@ -2,11 +2,11 @@ package projecto4.grupo1.albertoricardo.user;
 
 import java.io.Serializable;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
-import projecto4.grupo1.albertoricardo.UserEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 
 
@@ -30,7 +30,7 @@ public class UserLogged implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EJB
+	@Inject
 	private UserEJBLocal userejb;
 
 	private UserEntity user;

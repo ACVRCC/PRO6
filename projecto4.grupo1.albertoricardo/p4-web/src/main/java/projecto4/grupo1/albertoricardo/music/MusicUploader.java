@@ -35,7 +35,7 @@ public class MusicUploader implements Serializable {
 	private String path;
 	private String result = "";
 
-	@EJB
+	@Inject
 	private MusicUploadEJBLocal mu;
 
 	@Inject

@@ -2,7 +2,6 @@ package projecto4.grupo1.albertoricardo.user;
 
 import java.io.Serializable;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -26,7 +25,7 @@ public class UserLogin implements Serializable {
 
 	private static final Logger log = LoggerFactory.getLogger(UserLogin.class);
 
-	@EJB
+	@Inject
 	private UserEJBLocal userejb;
 
 	@SuppressWarnings("unused")

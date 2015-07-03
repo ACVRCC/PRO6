@@ -12,6 +12,7 @@
         <auth-method>FORM</auth-method>
         <realm-name>proj6Dominio</realm-name>
         <form-login-config>
+       
             <form-login-page>/login.xhtml</form-login-page>
             <form-error-page>/NonAuthorized.xhtml</form-error-page>
         </form-login-config>
@@ -22,7 +23,7 @@
         <web-resource-collection>
             <web-resource-name>Protected Area</web-resource-name>
             <description></description>
-          <url-pattern>Authorized/*</url-pattern>
+          <url-pattern>/Authorized/*</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>HEAD</http-method>

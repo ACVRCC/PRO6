@@ -23,7 +23,7 @@ public class UserRegister implements Serializable {
 
 	private static Logger log = LoggerFactory.getLogger(UserRegister.class);
 	
-	@EJB
+	@Inject
 	private UserEJBLocal userejb;
 	
 	@Inject

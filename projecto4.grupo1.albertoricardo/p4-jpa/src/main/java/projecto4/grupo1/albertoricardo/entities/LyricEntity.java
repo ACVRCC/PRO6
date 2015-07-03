@@ -1,4 +1,4 @@
-package projecto4.grupo1.albertoricardo;
+package projecto4.grupo1.albertoricardo.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +26,14 @@ public class LyricEntity {
 	private UserEntity userOwner;
 	
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public LyricEntity(){
 		
 	}

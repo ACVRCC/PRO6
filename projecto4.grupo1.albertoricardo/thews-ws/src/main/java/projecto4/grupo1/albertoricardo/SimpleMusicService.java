@@ -11,6 +11,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
+import projecto4.grupo1.albertoricardo.UserEJBLocal;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+
 
 
 @Stateless
@@ -48,7 +52,7 @@ public class SimpleMusicService {
 	return music.getOwnMusics(id);
 }
 	@GET
-	@Path("/ListMusic/{id}") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Music/ListMusic/name
+	@Path("/ListMusic/{id}") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Music/ListMusic/id
 	//Serviço nº12 procura por id da musica
 	@Produces(MediaType.APPLICATION_XML)
 //	@Produces(MediaType.TEXT_PLAIN)

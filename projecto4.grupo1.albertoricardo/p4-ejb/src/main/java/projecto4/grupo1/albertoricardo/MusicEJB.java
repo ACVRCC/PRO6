@@ -4,6 +4,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+
 
 
 
@@ -29,6 +31,6 @@ public class MusicEJB implements MusicEJBLocal {
 	}
 	@Override
 	public MusicEntity find(Object id) {
-		  return em.find(projecto4.grupo1.albertoricardo.MusicEntity.class, id);
+		  return em.find(projecto4.grupo1.albertoricardo.entities.MusicEntity.class, id);
 	}
 }

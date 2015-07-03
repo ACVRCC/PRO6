@@ -1,7 +1,10 @@
 package projecto4.grupo1.albertoricardo;
 
+
+
 import java.util.ArrayList;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,110 +17,147 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
+import projecto4.grupo1.albertoricardo.UserEJBLocal;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
 
-
 @Stateless
-@Path("/Utilizador") //TUDO O QUE ESTÁ NESTA CLASSE FICA NO PATH /UTILIZADOR
+@Path("/Utilizador")
+// TUDO O QUE ESTÁ NESTA CLASSE FICA NO PATH /UTILIZADOR
 public class SimpleUserService {
 
-	@Inject
-	private UserEJBLocal user;
-	@Inject 
-	private MusicListEJBLocal music;
-	
-	
+	@EJB
+	UserEJBLocal user;
+	@EJB
+	MusicListEJBLocal musics;
+
 	@GET
-	@Path("/Find") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Utilizador/Find
-	//Serviço nº2
+	@Path("/Find")
+	// ACEDER ATRAVÉS DO PATH
+	// http://localhost:8080/thews-ws/rest/Utilizador/Find
+	// Serviço nº2
 	@Produces(MediaType.APPLICATION_XML)
-//	@Produces(MediaType.TEXT_PLAIN)
-	public ArrayList<UserEntity> getAllUsers(){	
+	// @Produces(MediaType.TEXT_PLAIN)
+	public ArrayList<UserEntity> getAllUsers() {
 		return user.findAllUsers();
 	}
-	
+
 	@GET
-	@Path("/Count") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Utilizador/Count
-	//Serviço nº1
-//	@Produces(MediaType.APPLICATION_XML)
+	@Path("/Count")
+	// ACEDER ATRAVÉS DO PATH
+	// http://localhost:8080/thews-ws/rest/Utilizador/Count
+	// Serviço nº1
+	// @Produces(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	public int getCountAllUsers(){	
+	public int getCountAllUsers() {
 		return user.countAllUsers();
 	}
-	
-	
+
 	@GET
-	@Path("/List/{username}") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Utilizador/List/email
-	//Serviço nº 3 Procurar por email
+	@Path("/List/{username}")
+	// ACEDER ATRAVÉS DO PATH
+	// http://localhost:8080/thews-ws/rest/Utilizador/List/email
+	// Serviço nº 3 Procurar por email
 	@Produces(MediaType.APPLICATION_XML)
-//	@Produces(MediaType.TEXT_PLAIN)
-	public UserEntity getUserByEmail(@PathParam ("username")String username){	
+	// @Produces(MediaType.TEXT_PLAIN)
+	public UserEntity getUserByEmail(@PathParam("username") String username) {
 		return user.getUserEntity(username);
 	}
 
-
-	
 	@POST
-	@Path("/Add")  //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Utilizador/Add
-	@Consumes({MediaType.APPLICATION_XML})
-//	@Produces({MediaType.APPLICATION_XML})
-	//Serviço nº 14 Adiciona Utilizador
-		public Response createUser(UserEntity u){
-		 user.registerNewUser(u);
+	@Path("/Add")
+	// ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Utilizador/Add
+	@Consumes({ MediaType.APPLICATION_XML })
+	// @Produces({MediaType.APPLICATION_XML})
+	// Serviço nº 14 Adiciona Utilizador
+	public Response createUser(UserEntity u) {
+		user.registerNewUser(u);
 		return Response.status(200).build();
-		}
-	
+	}
+
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/Delete/{id}")
+	// Aceder Através do path
+	// http://localhost:8080/thews-ws/rest/Utilizador/Delete/id
 	@Produces(MediaType.APPLICATION_XML)
-	//Serviço nº 14 remover Utilizador
-	public Response removeUserById(@PathParam("id") int id){	
-		UserEntity u = user.getUserFromId(id);		
+	// Serviço nº 14 remover Utilizador
+	public Response removeUserById(@PathParam("id") int id) {
+//		UserEntity u = user.getUserFromId(id);
 		boolean removed = user.deleteUser(user.getUserFromId(id));
 		if (removed)
 			return Response.ok().build();
 		else
 			return Response.notModified().build();
 	}
-	
+
 	@POST
 	@Path("Change/{id}/{password}")
-//	@Consumes({MediaType.APPLICATION_XML})
-	//Serviço nº 15
-	public void changePw(@PathParam("id") int id, @PathParam("password") String password){
-		UserEntity u=user.getUserFromId(id);
+	// Aceder Através do path
+	// http://localhost:8080/thews-ws/rest/Utilizador/Change/id/password
+	// @Consumes({MediaType.APPLICATION_XML})
+	// Serviço nº 15
+	public void changePw(@PathParam("id") int id,
+			@PathParam("password") String password) {
+		UserEntity u = user.getUserFromId(id);
 		PasswordEncryptor pe = new PasswordEncryptor();
 		String ePassword = pe.encrypt(password);
-		u.setPassword(ePassword);		
+		u.setPassword(ePassword);
 	}
-	
-	//Ainda não funciona
+
+	// Ainda não funciona
+	@DELETE
+	@Path("Musicdelete/{id}")
+	// Aceder Através do path http://localhost:8080/thews-ws/rest/Utilizador/Musicdelete/id
+	@Produces(MediaType.APPLICATION_XML)
+	// Serviço nº 16
+	public Response deleteMusic(@PathParam("id") int id) {
+		UserEntity u = user.getUserFromId(id);
+		System.out.println("Utilizador --->  "+u.getName());
+		boolean ok;
+		ok = musics.removerUserOwnership(u);
+		if (ok)
+			return Response.ok().build();
+		else
+			return Response.notModified().build();
+	}
 //	@GET
-//	@Path("DeleteMusic/{iduser}/{idmusic}")
-//	//Serviço nº 16
-//	public void deleteMusic(@PathParam("iduser") int iduser, @PathParam("idmusic") int idmusic){
-//		UserEntity u=user.getUserFromId(iduser);
-//		MusicEntity m = music.listOwnMusics(u).get(idmusic);
-//		music.removerMusicUserOwnership (m,u);
-		
+//	@Path("/FindLogged")
+//	// ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Utilizador/FindLogged
+//	// Serviço nº5
+//	@Produces(MediaType.APPLICATION_XML)
+//	// @Produces(MediaType.TEXT_PLAIN)
+//	public ArrayList<UserEntity> getLoggedUsers() {
+//		return counter.getLogged();
 //	}
-	//APAGAR VEIO DO EXEMPLO DO MONITOR
-//	@POST
-//	@Path("/simpleuser")
-//	@Consumes({MediaType.APPLICATION_XML})
-//	@Produces({MediaType.APPLICATION_XML})
-//	public Response createSimpleUser(SimpleUser user){
-//		System.out.println(user.getId());
-//		System.out.println(user.getUsername());
-//		SimpleUser another = new SimpleUser();
-//		another.setUsername(user.getUsername());// Why ? :(
-//		
-//		
-//		SimpleUser newuser = usermng.create(another);
-//		//Response.notModified();
-//		
-//		return Response.ok(newuser).build();
-//		
+//	
+//	@GET
+//	@Path("/CountLogged")
+//	// ACEDER ATRAVÉS DO PATH
+//	// http://localhost:8080/thews-ws/rest/Utilizador/CountLogged
+//	// Serviço nº4
+//	@Produces(MediaType.APPLICATION_XML)
+//	// @Produces(MediaType.TEXT_PLAIN)
+//	public int countLoggedUsers() {
+//		return counter.getNumLogged();
 //	}
-	
+	// APAGAR VEIO DO EXEMPLO DO MONITOR
+	// @POST
+	// @Path("/simpleuser")
+	// @Consumes({MediaType.APPLICATION_XML})
+	// @Produces({MediaType.APPLICATION_XML})
+	// public Response createSimpleUser(SimpleUser user){
+	// System.out.println(user.getId());
+	// System.out.println(user.getUsername());
+	// SimpleUser another = new SimpleUser();
+	// another.setUsername(user.getUsername());// Why ? :(
+	//
+	//
+	// SimpleUser newuser = usermng.create(another);
+	// //Response.notModified();
+	//
+	// return Response.ok(newuser).build();
+	//
+	// }
+
 }

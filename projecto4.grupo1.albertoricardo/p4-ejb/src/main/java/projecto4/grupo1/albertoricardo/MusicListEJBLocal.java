@@ -8,15 +8,16 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.xml.bind.annotation.XmlTransient;
 
-import projecto4.grupo1.albertoricardo.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
 
 
 @Local
 public interface MusicListEJBLocal {
-	@XmlTransient
+
 	List<MusicEntity> listMusics();
-	@XmlTransient
+
 	List<MusicEntity> listOwnMusics(UserEntity user);
 
 	boolean update(MusicEntity music);
@@ -24,9 +25,11 @@ public interface MusicListEJBLocal {
 	boolean removerUserOwnership(UserEntity user);
 
 	void removerMusicUserOwnership(MusicEntity m, UserEntity user);
-	@XmlTransient	
+
 	ArrayList<MusicEntity> getOwnMusics(int id);
-	@XmlTransient	
+
 	ArrayList<MusicEntity> getMusicsFromId(int id);
+
+	MusicEntity getMusicFromId(int id);
 	
 }

@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
+
 @Stateless
 public class PlaylistCRUD {
 

@@ -14,8 +14,9 @@ import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
-import projecto4.grupo1.albertoricardo.PlaylistEntity;
+import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 
@@ -32,7 +33,7 @@ public class Playlist implements Serializable {
 	private static final Logger log = LoggerFactory.getLogger(Playlist.class);
 
 
-	@EJB
+	@Inject
 	private PlaylistEJBLocal playlistejb;
 	@Inject
 	private UserLogged userlogged;

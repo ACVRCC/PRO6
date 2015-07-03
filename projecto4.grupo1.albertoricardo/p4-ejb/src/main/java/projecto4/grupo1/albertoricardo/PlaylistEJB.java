@@ -22,6 +22,9 @@ import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.dto.DozerHelper;
 import projecto4.grupo1.albertoricardo.dto.PListDTO;
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
 
 
@@ -164,4 +167,32 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 		return pe;
 	}
+	public PlaylistEntity getPlaylistFromId(int id) {
+		PlaylistEntity p = null;
+		try {
+			Query q = em
+					.createQuery("SELECT p from PlaylistEntity p WHERE p.id = :id");
+			q.setParameter("id", id);
+			p = (PlaylistEntity) q.getSingleResult();
+		} catch (NoResultException nre) {
+			nre.printStackTrace();
+		}
+		return p;
+}
+	@Override
+	public void updateMusic (PlaylistEntity playlist, MusicEntity musics) {
+
+		playlist.getMusics().add(musics);
+		pl_crud.update(playlist);
+	}
+
+	@Override
+	public void removeMusic (PlaylistEntity playlist, MusicEntity musics) {
+		
+		playlist.getMusics().remove(musics);
+		pl_crud.update(playlist);
+	}
+
+
+
 }
