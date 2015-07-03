@@ -47,6 +47,9 @@ public class UserEntity {
 		this.role="CLIENT";
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getRole() {
 		return role;
 	}
