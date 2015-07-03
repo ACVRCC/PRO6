@@ -49,7 +49,7 @@ public class SimplePlaylistService {
 	}
 	@GET
 	@Path("/List/{id}") //ACEDER ATRAVÉS DO PATH http://localhost:8080/thews-ws/rest/Playlist/List/id
-	//Serviço nº 9
+	//Serviço nº 9 
 	@Produces(MediaType.APPLICATION_XML)
 //	@Produces(MediaType.TEXT_PLAIN)
 	public List<PlaylistEntity> getUserByEmail(@PathParam ("id")int id){	
