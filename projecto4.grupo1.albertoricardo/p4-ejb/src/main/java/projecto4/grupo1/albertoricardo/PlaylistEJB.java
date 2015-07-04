@@ -36,7 +36,9 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 
 	@EJB
 	private PlaylistCRUD pl_crud;
-
+	@EJB
+	private MusicListEJBLocal musics;
+	
 	private static Logger log = LoggerFactory.getLogger(PlaylistEJB.class);
 
 	@Override
@@ -117,8 +119,7 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			int complete = q.executeUpdate();
 			if (complete > 0) success = true;
 		} catch(Exception e) {
-			FacesMessage msg = new FacesMessage("Erro",e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+	
 			log.warn("catch exception - removePlaylistsOfUser method");
 		}
 
@@ -133,12 +134,10 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			p.getMusics().clear();
 			pl_crud.remove(p);
 			success = true;
-			FacesMessage msg = new FacesMessage("Playlist","Playlist "+p.getName()+" removida com sucesso.");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			
 		} catch(Exception e) {
 			log.error("Erro ao tentar remover playlist",e);
-			FacesMessage msg = new FacesMessage("Erro","Playlist "+p.getName()+" não foi eliminada");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+		
 		}
 
 		return success;
@@ -156,11 +155,13 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		pl_crud.update(playlist);
 	}
 //***********************************************
-	public List<PlaylistEntity> getMusicFromPlaylists(int id) { 
-		List<PlaylistEntity> pe = new ArrayList<>();
+	public List<MusicEntity> getMusicFromPlaylists(int id) { 
+		List<MusicEntity> pe = new ArrayList<>();
 		try {
-			Query q = em.createQuery("SELECT m from PlaylistEntity p JOIN p.musics m Where p.id= :"+id);
-			pe = (ArrayList<PlaylistEntity>) q.getResultList();
+			Query q = em.createQuery("SELECT m from PlaylistEntity p JOIN p.musics m Where p.id= :id");
+			q.setParameter("id", id);
+			
+			pe = (ArrayList<MusicEntity>) q.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.warn("catch exception - getPlaylists method");

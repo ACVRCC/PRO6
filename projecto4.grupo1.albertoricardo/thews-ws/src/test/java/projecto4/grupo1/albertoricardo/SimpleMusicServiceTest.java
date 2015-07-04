@@ -23,26 +23,18 @@ public class SimpleMusicServiceTest {
 	        RestAssured.baseURI = "http://localhost";
 	        RestAssured.port = 8080;
 	    }
-	    @Ignore
+
+	  
+	   
 	    @Test
-	    public void countMusicsTest() {
-	        RestAssured.expect().statusCode(200).contentType(ContentType.TEXT).when().get("/Count");
+	    public void userMusicsTest() {
+	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/List/1");
 	    }
 	   
-//	    @Test
-//	    public void findAllMusicsTest() {
-//	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/Find");
-//	    }
-//	   
-//	    @Test
-//	    public void userMusicsTest() {
-//	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/List/1");
-//	    }
-//	   
-//	   
-//	    @Test
-//	    public void listMusicTest() {
-//	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/ListMusic/1");
-//	    }
-//	   
+	   
+	    @Test
+	    public void listMusicTest() {
+	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/ListMusic/1");
+	    }
+	   
 }

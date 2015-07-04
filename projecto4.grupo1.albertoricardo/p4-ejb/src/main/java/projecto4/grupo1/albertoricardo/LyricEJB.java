@@ -4,6 +4,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import projecto4.grupo1.albertoricardo.entities.LyricEntity;
+
 @Stateless
 public class LyricEJB implements LyricEJBLocal{
 

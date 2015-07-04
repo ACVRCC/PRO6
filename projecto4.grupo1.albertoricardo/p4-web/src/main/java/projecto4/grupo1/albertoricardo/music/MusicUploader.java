@@ -19,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicUploadEJBLocal;
-import projecto4.grupo1.albertoricardo.lyric.LyricEditor;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
@@ -36,7 +35,7 @@ public class MusicUploader implements Serializable {
 	private String path;
 	private String result = "";
 
-	@EJB
+	@Inject
 	private MusicUploadEJBLocal mu;
 
 	@Inject
@@ -46,13 +45,8 @@ public class MusicUploader implements Serializable {
 
 
 	private Part file;
-	
-	private LyricEditor le;
 
 
-
-	
-	
 	public void fileUpload() throws IOException {
 		try {
 			path = System.getProperty("user.dir");
@@ -95,8 +89,8 @@ public class MusicUploader implements Serializable {
 			mu.uploadMusicDB(title, artist, album, dateReleased, finalPath, ulog.getUser());
 		} catch (Exception e) {
 			log.error("Erro ao fazer upload",e);
-			FacesMessage msg = new FacesMessage("Música","Erro ao fazer upload.");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+//			FacesMessage msg = new FacesMessage("Música","Erro ao fazer upload.");
+//			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 

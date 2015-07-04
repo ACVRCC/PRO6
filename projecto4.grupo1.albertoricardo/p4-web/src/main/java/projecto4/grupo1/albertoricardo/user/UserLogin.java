@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.LoggedUsers;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 
 @Named
@@ -34,7 +35,9 @@ public class UserLogin implements Serializable {
 
 	@Inject
 	private UserLogged userlog;
-
+	@Inject
+	private LoggedUsers logged;
+	
 	private int id;
 	private String email;
 	private String password;
@@ -54,6 +57,7 @@ public class UserLogin implements Serializable {
 			System.out.println("passa 2");
 			userlog.setUser(userejb.getUserEntity(email));
 			log.info("Utilizador "+email+" iniciou sessão.");
+			logged.addLogged(userejb.getUserEntity(email));
 			return "/Authorized/entry.xhtml?faces-redirect=true";
 		} catch (ServletException e){ 
 			System.out.println("erro 1");

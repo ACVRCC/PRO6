@@ -2,6 +2,7 @@ package projecto4.grupo1.albertoricardo.user;
 
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.LoggedUsers;
 import projecto4.grupo1.albertoricardo.UserEJBLocal;
 import projecto4.grupo1.albertoricardo.entities.UserEntity;
 import projecto4.grupo1.albertoricardo.security.PasswordEncryptor;
@@ -32,7 +34,10 @@ public class UserLogged implements Serializable {
 
 	@Inject
 	private UserEJBLocal userejb;
+	@Inject
+	private LoggedUsers logged;
 
+	
 	private UserEntity user;
 	private String newName;
 	private String newPassword;
@@ -50,6 +55,7 @@ public class UserLogged implements Serializable {
 		try{
 			request.logout();
 			log.info("Utilizador "+user.getEmail()+" encerrou a sessão.");
+			logged.removeLogged(user);
 			return "/login.xhtml//?faces-redirect=true"; 
 		} catch (ServletException e) {
 			log.error("Utilizador "+user.getEmail()+" falha logout.");

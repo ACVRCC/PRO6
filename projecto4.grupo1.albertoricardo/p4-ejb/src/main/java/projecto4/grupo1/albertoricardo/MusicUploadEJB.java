@@ -12,6 +12,9 @@ import javax.persistence.PersistenceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import projecto4.grupo1.albertoricardo.entities.MusicEntity;
+import projecto4.grupo1.albertoricardo.entities.UserEntity;
+
 
 
 
@@ -46,12 +49,14 @@ public class MusicUploadEJB implements MusicUploadEJBLocal {
 			em.persist(me);
 			System.out.println("idMusica de novo upload"+me.getId());
 			le.uploadLyricDB(me.getId());
-			FacesMessage msg = new FacesMessage("Música","Upload realizado com sucesso!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+
 		} catch (Exception e) {
 			log.error("Erro a guardar nova música",e);
-			FacesMessage msg = new FacesMessage("Música","Erro ao fazer upload.");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+
 		}
 	}
+
+
+		
+	
 }

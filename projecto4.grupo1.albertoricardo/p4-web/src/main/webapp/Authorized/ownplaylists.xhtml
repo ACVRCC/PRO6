@@ -110,8 +110,8 @@
 									value="#{lyricEditor.lyricEdited}" label="customLyrics" />
 								<h:panelGroup layout="block"
 									style="text-align:right;margin-top:20px;">
-									<p:commandButton id="origlyricbutton" value="Obter letra de ChartLyrics"
-										action="#{lyricEditor.newUploadLyric()}" update="@form" />
+										<h:outputText value="Gravar letra  em Músicas Disponíveis para obter original " />
+										<p></p>
 									<p:commandButton id="lyricbutton" value="Gravar"
 										action="#{lyricEditor.updateLyric()}" update="@form" />
 								</h:panelGroup>

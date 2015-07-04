@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -117,9 +118,7 @@ public class UserEJB implements UserEJBLocal {
 			UserEntity u = (UserEntity) q.getSingleResult();
 			name = u.getName();
 		} catch (Exception e) {
-			FacesMessage msg = new FacesMessage("Login",
-					"Utilizador inexistente.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+
 		}
 		return name;
 	}
@@ -129,7 +128,7 @@ public class UserEJB implements UserEJBLocal {
 		UserEntity u = null;
 		try {
 			Query q = em
-					.createQuery("select u from UserEntity u where u.email like :e");
+					.createQuery("select u from UserEntity u where u.email =:e");
 			q.setParameter("e", username);
 			u = (UserEntity) q.getSingleResult();
 		} catch (NoResultException nre) {
@@ -175,4 +174,5 @@ public class UserEJB implements UserEJBLocal {
 		crud.create(u);
 		log.info("Novo utilizador registado: " + u.getName());
 	}
+	
 }

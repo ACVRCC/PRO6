@@ -38,13 +38,17 @@ public class MusicEntity {
 	private Date dateRecord;
 	@Column(nullable=false)
 	private String pathFile;
+	@Column(nullable=false)
+	private boolean hasLyric;
+
+
 	@XmlTransient
 	@ManyToMany(mappedBy="musics")
 	List<PlaylistEntity> playlists;
 	@XmlTransient
 	@ManyToOne
 	private UserEntity userOwner;
-//	@OneToMany(cascade =CascadeType.REMOVE,mappedBy="userOwner")
+
 //	private List<LyricEntity> lyricentities;
 
 	
@@ -120,7 +124,13 @@ public class MusicEntity {
 		this.userOwner = userOwner;
 	}
 
-	
+	public boolean isHasLyric() {
+		return hasLyric;
+	}
+
+	public void setHasLyric(boolean hasLyric) {
+		this.hasLyric = hasLyric;
+	}
  
 	
 	

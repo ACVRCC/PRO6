@@ -32,7 +32,7 @@ public interface PlaylistEJBLocal {
 
 	void update(PlaylistEntity playlist);
 	
-	public List<PlaylistEntity> getMusicFromPlaylists(int id);
+	public List<MusicEntity> getMusicFromPlaylists(int id);
 
 	public PlaylistEntity getPlaylistFromId(int id);
 

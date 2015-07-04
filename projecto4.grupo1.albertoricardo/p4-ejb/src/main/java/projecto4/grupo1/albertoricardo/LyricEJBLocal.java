@@ -2,6 +2,8 @@ package projecto4.grupo1.albertoricardo;
 
 import javax.ejb.Local;
 
+import projecto4.grupo1.albertoricardo.entities.LyricEntity;
+
 
 
 

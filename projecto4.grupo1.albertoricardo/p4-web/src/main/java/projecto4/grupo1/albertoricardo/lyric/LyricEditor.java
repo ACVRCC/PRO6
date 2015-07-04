@@ -23,7 +23,7 @@ public class LyricEditor implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 
-	@EJB
+	@Inject
 	private LyricEditorEJB le;
 	@Inject
 	private UserLogged userlogged;
@@ -42,10 +42,7 @@ public class LyricEditor implements Serializable{
 	public void uploadLyric(int idMusic){
 		le.uploadLyricDB(idMusic);			
 	}
-	
-	public void newUploadLyric(){
-		le.newUploadLyricDB(userlogged.getUser().getId(), musicIdTemp);			
-	}
+
 	
 	
 	public void saveLyric(){	
@@ -92,16 +89,6 @@ public class LyricEditor implements Serializable{
 		this.lyricEdited = lyricEdited;
 	}
 
-
-//	public boolean colorButton(){
-//		
-//		if (lyricTemp.equals(""))
-//			return false;
-//		
-//		return true;
-//	
-//		
-//	}
 
 
 }
