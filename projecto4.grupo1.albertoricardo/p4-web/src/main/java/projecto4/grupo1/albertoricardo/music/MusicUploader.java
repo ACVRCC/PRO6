@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import projecto4.grupo1.albertoricardo.MusicUploadEJBLocal;
+import projecto4.grupo1.albertoricardo.lyric.LyricEditor;
 import projecto4.grupo1.albertoricardo.user.UserLogged;
 
 @Named
@@ -35,7 +36,7 @@ public class MusicUploader implements Serializable {
 	private String path;
 	private String result = "";
 
-	@Inject
+	@EJB
 	private MusicUploadEJBLocal mu;
 
 	@Inject
@@ -45,8 +46,13 @@ public class MusicUploader implements Serializable {
 
 
 	private Part file;
+	
+	private LyricEditor le;
 
 
+
+	
+	
 	public void fileUpload() throws IOException {
 		try {
 			path = System.getProperty("user.dir");

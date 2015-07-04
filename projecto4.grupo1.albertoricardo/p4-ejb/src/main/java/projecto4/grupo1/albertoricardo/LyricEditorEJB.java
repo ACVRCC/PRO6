@@ -27,6 +27,7 @@ public class LyricEditorEJB {
 
 
 	public void uploadLyricDB(int idMusic) {
+		
 
 		LyricEntity le = new LyricEntity();
 		LyricsRest lr = new LyricsRest();
@@ -38,18 +39,21 @@ public class LyricEditorEJB {
 
 		try {
 			em.persist(le);
-			FacesMessage msg = new FacesMessage("Letra","Upload realizado com sucesso!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			me.setHasLyric(true);
 		} catch (Exception e) {
 			log.error("Erro a guardar nova letra",e);
 			FacesMessage msg = new FacesMessage("Letra","Erro ao fazer upload.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
+		
 	}
 
 	public void newUploadLyricDB(int idUserOwner, int idMusic) {
 
 		LyricsRest lr = new LyricsRest();
+		
+		if(getLyricEntity(idUserOwner,idMusic).getLyric()!=null){
+			
 		LyricEntity le = getLyricEntity(idUserOwner, idMusic);
 		MusicEntity me = em.find(MusicEntity.class, idMusic);
 		le.setLyric(lr.chartRestLyric(me.getTitle(), me.getArtist()));
@@ -63,6 +67,9 @@ public class LyricEditorEJB {
 			log.error("Erro a guardar nova letra",e);
 			FacesMessage msg = new FacesMessage("Letra","Erro ao fazer upload.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+		}else{
+			uploadLyricDB(idMusic);	
 		}
 	}
 
@@ -83,16 +90,13 @@ public class LyricEditorEJB {
 
 			try {
 				crud.update(le);
-				FacesMessage msg = new FacesMessage("Letra","Gravação realizada com sucesso!");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+//				FacesMessage msg = new FacesMessage("Letra","Gravação realizada com sucesso!");
+//				FacesContext.getCurrentInstance().addMessage(null, msg);
 			} catch (Exception e) {
 				log.error("Erro a guardar nova letra",e);
-				FacesMessage msg = new FacesMessage("Letra","Erro ao gravar letra.");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+//				FacesMessage msg = new FacesMessage("Letra","Erro ao gravar letra.");
+//				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		}else {		
-			FacesMessage msg = new FacesMessage("Letra","Letra já existente. Consulte e edite em Playlists.");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
 
@@ -116,6 +120,9 @@ public class LyricEditorEJB {
 	public String readOriginalLyric(int idMusic){
 
 		LyricEntity le = new LyricEntity();
+		
+		if(idMusic!=0){
+		
 		log.info("Consulta à base de dados para obter letra de música original");
 		Query q = em.createQuery("SELECT le FROM LyricEntity le WHERE le.music.id = :mi AND le.userOwner.id is NULL")
 				.setParameter("mi", idMusic);			
@@ -125,8 +132,9 @@ public class LyricEditorEJB {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.warn("Erro ao obter letra de música original");
+		}return le.getLyric();
 		}
-		return le.getLyric();
+		return "";
 	}
 
 	public LyricEntity getLyricEntity(int idUserOwner, int idMusic){

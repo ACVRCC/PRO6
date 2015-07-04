@@ -27,7 +27,7 @@ public class LyricEJB implements LyricEJBLocal{
 		}
 		@Override
 		public LyricEntity find(Object id) {
-			  return em.find(projecto4.grupo1.albertoricardo.LyricEntity.class, id);
+			  return em.find(LyricEntity.class, id);
 		}
 	
 	

@@ -62,7 +62,7 @@
 							</p:column>
 
 							<p:column headerText="Letra">
-								<p:commandButton  icon="ui-icon-comment"
+								<p:commandButton  rendered="#{music.hasLyric}" icon="ui-icon-comment"
 									 oncomplete="PF('dlg1').show()"
 									update="@form">
 									<f:setPropertyActionListener value="#{music.id}"

@@ -28,12 +28,13 @@ public class LyricEditor implements Serializable{
 	@Inject
 	private UserLogged userlogged;
 
-	private String lyricTemp=null;
-	private String lyricEdited=null;
+	private String lyricTemp="";
+	private String lyricEdited="";
 	private int musicIdTemp=0;
 	
+	
+	
 
-	@SuppressWarnings("unused")
 	private static Logger log = LoggerFactory.getLogger(LyricEditor.class);
 
 	
@@ -52,25 +53,16 @@ public class LyricEditor implements Serializable{
 	}
 	
 	public void updateLyric(){
-	//	if(musicIdTemp!=0&&lyricEdited!="")
 		le.updateLyricDB(userlogged.getUser().getId(), musicIdTemp, lyricEdited);
-//		else
-//			log.error("Update de letra cancelado: parâmetro nulo");
 	}
 
 
 	public void lyricString(){
-//		if(musicIdTemp!=0)
 		lyricTemp = le.readOriginalLyric(musicIdTemp);
-//		else
-//			log.error("Leitura de letra cancelada: parâmetro nulo");
 	}
 
 	public void lyricEditedString(){
-	//	if(musicIdTemp!=0)
-		lyricEdited=(le.readEditedLyric(userlogged.getUser().getId(),musicIdTemp));	
-//		else
-//			log.error("Leitura de letra cancelada: parâmetro nulo");
+		lyricEdited=(le.readEditedLyric(userlogged.getUser().getId(),musicIdTemp));
 	}
 	
 
