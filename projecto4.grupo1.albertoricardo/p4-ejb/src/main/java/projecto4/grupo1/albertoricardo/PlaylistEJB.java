@@ -1,6 +1,4 @@
-
 package projecto4.grupo1.albertoricardo;
-
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,8 +6,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -26,19 +22,20 @@ import projecto4.grupo1.albertoricardo.entities.MusicEntity;
 import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
 import projecto4.grupo1.albertoricardo.entities.UserEntity;
 
-
-
 @Stateless
 public class PlaylistEJB implements PlaylistEJBLocal {
 
-	@PersistenceContext(name="Playlist")
+	@PersistenceContext(name = "Playlist")
 	private EntityManager em;
 
 	@EJB
-	private PlaylistCRUD pl_crud;
+	private IPlaylistFacade pl_crud;
 	@EJB
 	private MusicListEJBLocal musics;
-	
+
+	@EJB
+	private IPlaylistFacade playlistFacade;
+
 	private static Logger log = LoggerFactory.getLogger(PlaylistEJB.class);
 
 	@Override
@@ -48,31 +45,29 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		pl.setInsertDate(insertDate);
 		pl.setUserOwner(userlogged);
 		em.persist(pl);
-	}    
-	
-	@SuppressWarnings("unchecked")
+	}
+
 	@Override
-	public List<PListDTO> getPlaylistDozer() { 
+	public List<PListDTO> getPlaylistDozer() {
 		List<PListDTO> pldto = new ArrayList<>();
 		try {
-			Query q = em.createQuery("SELECT p FROM PlaylistEntity p");
-			ArrayList<PlaylistEntity> pe = (ArrayList<PlaylistEntity>) q.getResultList();
+			List<PlaylistEntity> pe = playlistFacade.findAll();
+
 			Mapper mapper = new DozerBeanMapper();
+
 			pldto = DozerHelper.map(mapper, pe, PListDTO.class);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return pldto;
 	}
 
-
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<PlaylistEntity> getPlaylists() { 
+	public List<PlaylistEntity> getPlaylists() {
 		List<PlaylistEntity> pe = new ArrayList<>();
 		try {
-			Query q = em.createQuery("SELECT p FROM PlaylistEntity p");
-			pe = (ArrayList<PlaylistEntity>) q.getResultList();
+			pe = playlistFacade.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.warn("catch exception - getPlaylists method");
@@ -80,29 +75,29 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		return pe;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<PlaylistEntity> getOwnPlaylists(int id) { 
+	public List<PlaylistEntity> getOwnPlaylists(int id) {
 		List<PlaylistEntity> pe = new ArrayList<>();
+
 		try {
-			Query q = em.createQuery("SELECT p FROM PlaylistEntity p WHERE p.userOwner.id = :id")
-					.setParameter("id", id);
-			pe = (ArrayList<PlaylistEntity>) q.getResultList();
+			pe = playlistFacade.findAllByUserId(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.warn("catch exception - getOwnPlaylists method");
 		}
+
 		return pe;
 	}
 
 	@Override
-	public boolean findName(String name){
-		boolean found=false;
+	public boolean findName(String name) {
+		boolean found = false;
 		try {
-			Query q = em.createQuery("select u from PlaylistEntity u where u.name like :e");
+			Query q = em
+					.createQuery("select u from PlaylistEntity u where u.name like :e");
 			q.setParameter("e", name);
-			if(q.getSingleResult()!=null)
-				found=true;
+			if (q.getSingleResult() != null)
+				found = true;
 		} catch (NoResultException nre) {
 			found = false;
 			log.warn("catch exception - findName method");
@@ -114,12 +109,14 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	public boolean removePlaylistsOfUser(UserEntity u) {
 		boolean success = false;
 		try {
-			Query q = em.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i");
+			Query q = em
+					.createQuery("DELETE FROM PlaylistEntity p where p.userOwner.id = :i");
 			q.setParameter("i", u.getId());
 			int complete = q.executeUpdate();
-			if (complete > 0) success = true;
-		} catch(Exception e) {
-	
+			if (complete > 0)
+				success = true;
+		} catch (Exception e) {
+
 			log.warn("catch exception - removePlaylistsOfUser method");
 		}
 
@@ -134,17 +131,17 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			p.getMusics().clear();
 			pl_crud.remove(p);
 			success = true;
-			
-		} catch(Exception e) {
-			log.error("Erro ao tentar remover playlist",e);
-		
+
+		} catch (Exception e) {
+			log.error("Erro ao tentar remover playlist", e);
+
 		}
 
 		return success;
 	}
 
 	@Override
-	public void updateName(int id, String name){
+	public void updateName(int id, String name) {
 
 		pl_crud.find(id).setName(name);
 
@@ -154,13 +151,15 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 	public void update(PlaylistEntity playlist) {
 		pl_crud.update(playlist);
 	}
-//***********************************************
-	public List<MusicEntity> getMusicFromPlaylists(int id) { 
+
+	// ***********************************************
+	public List<MusicEntity> getMusicFromPlaylists(int id) {
 		List<MusicEntity> pe = new ArrayList<>();
 		try {
-			Query q = em.createQuery("SELECT m from PlaylistEntity p JOIN p.musics m Where p.id= :id");
+			Query q = em
+					.createQuery("SELECT m from PlaylistEntity p JOIN p.musics m Where p.id= :id");
 			q.setParameter("id", id);
-			
+
 			pe = (ArrayList<MusicEntity>) q.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -168,6 +167,7 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 		}
 		return pe;
 	}
+
 	public PlaylistEntity getPlaylistFromId(int id) {
 		PlaylistEntity p = null;
 		try {
@@ -179,21 +179,20 @@ public class PlaylistEJB implements PlaylistEJBLocal {
 			nre.printStackTrace();
 		}
 		return p;
-}
+	}
+
 	@Override
-	public void updateMusic (PlaylistEntity playlist, MusicEntity musics) {
+	public void updateMusic(PlaylistEntity playlist, MusicEntity musics) {
 
 		playlist.getMusics().add(musics);
 		pl_crud.update(playlist);
 	}
 
 	@Override
-	public void removeMusic (PlaylistEntity playlist, MusicEntity musics) {
-		
+	public void removeMusic(PlaylistEntity playlist, MusicEntity musics) {
+
 		playlist.getMusics().remove(musics);
 		pl_crud.update(playlist);
 	}
-
-
 
 }

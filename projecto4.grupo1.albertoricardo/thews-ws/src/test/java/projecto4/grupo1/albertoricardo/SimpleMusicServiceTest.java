@@ -25,13 +25,13 @@ public class SimpleMusicServiceTest {
 	    }
 
 	  
-	   
+	    
 	    @Test
 	    public void userMusicsTest() {
 	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/List/1");
 	    }
 	   
-	   
+	
 	    @Test
 	    public void listMusicTest() {
 	        RestAssured.expect().statusCode(200).contentType(ContentType.XML).when().get("/ListMusic/1");

@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.ws.Response;
 
 import projecto4.grupo1.albertoricardo.MusicListEJBLocal;
-import projecto4.grupo1.albertoricardo.PlaylistCRUD;
+import projecto4.grupo1.albertoricardo.PlaylistFacade;
 import projecto4.grupo1.albertoricardo.PlaylistEJBLocal;
 import projecto4.grupo1.albertoricardo.entities.MusicEntity;
 import projecto4.grupo1.albertoricardo.entities.PlaylistEntity;
